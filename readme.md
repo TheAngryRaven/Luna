@@ -17,9 +17,11 @@ remember to edit your .env to include an email account as well
 ### ToDo
 - [x] First level of security SSL
 - [x] Second level of security using JS RSA and AES
-- [ ] Create basic message drop system
 - [ ] Encrypt 'post' data in a similar way
+- [ ] Create basic message drop system
 - [ ] Create user login and register system
+- [ ] Contact system with keypair abilities
+- [ ] Full blown message encryption
 
 #### License
    Licensed under the Apache License, Version 2.0
