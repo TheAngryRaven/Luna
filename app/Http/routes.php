@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PublicController@home_GET');
+Route::post('/', 'PublicController@home_POST');
