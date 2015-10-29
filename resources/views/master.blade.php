@@ -14,11 +14,7 @@ $sessionKeys = Session::get("serverKeys");
 <!-- Wrapper -->
 <div id="wrapper">
 
-    <div id="nav" style="margin-bottom: 1em;">
-        <a href="#" onclick="alert('login');" class="button">Login</a>
-        <a href="#" onclick="alert('register');" class="button">Register</a>
-        <a href="#" onclick="alert('drop');" class="button">Drop</a>
-    </div>
+@include('nav')
 
     <!-- Main -->
     <section id="main">
@@ -32,7 +28,7 @@ $sessionKeys = Session::get("serverKeys");
     <footer id="footer">
         <ul class="icons">
             <li><a href="mailto:lunarmessagingservice@gmail.com" class="fa-envelope">Email</a></li>
-            <li><a href="https://github.com/CrimsonDove/LunarMessaging" class="fa-github">Github</a></li>
+            <li><a href="https://github.com/CrimsonDove/Luna" class="fa-github">Github</a></li>
         </ul>
     </footer>
 

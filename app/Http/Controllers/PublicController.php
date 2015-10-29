@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
-
 use App\Providers\CryptoServiceProvider as CryptoService;
 
 class PublicController extends Controller
@@ -38,5 +37,21 @@ class PublicController extends Controller
 
     public function home_POST(Request $request){
         return CryptoService::loadPage($request, 'home');
+    }
+
+    public function login_GET(Request $request){
+        return $this->master($request);
+    }
+
+    public function login_POST(Request $request){
+        return CryptoService::loadPage($request, 'login');
+    }
+
+    public function register_GET(Request $request){
+        return $this->master($request);
+    }
+
+    public function register_POST(Request $request){
+        return CryptoService::loadPage($request, 'register');
     }
 }

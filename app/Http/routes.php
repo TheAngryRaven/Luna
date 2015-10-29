@@ -11,5 +11,16 @@
 |
 */
 
+//public facing links
 Route::get('/', 'PublicController@home_GET');
 Route::post('/', 'PublicController@home_POST');
+
+Route::get('login', 'PublicController@login_GET');
+Route::post('login', 'PublicController@login_POST');
+
+Route::get('register', 'PublicController@register_GET');
+Route::post('register', 'PublicController@register_POST');
+
+//drop service
+Route::get('drop', 'DropController@home_GET');
+Route::post('drop', 'DropController@home_POST');
