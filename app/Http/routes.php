@@ -27,5 +27,6 @@ Route::post('drop', 'DropController@home_POST');
 
 Route::post('encrypt', 'DropController@encrypt_AJAX');
 
+Route::get('message', function(){ return Redirect::to('/'); });
 Route::get('message/{messageID}','DropController@message_GET');
 Route::post('message/{messageID}','DropController@message_POST');

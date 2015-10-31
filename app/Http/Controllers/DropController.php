@@ -163,10 +163,9 @@ class DropController extends Controller
                 Session::flash('encMessageType', $messageType);
 
                 //now delete the message from the server
-                //DB::delete('DELETE FROM t_message WHERE id = :id', ['id' => $messageID]);
+                DB::delete('DELETE FROM t_message WHERE id = :id', ['id' => $messageID]);
 
                 //load the encrypted message
-                //return $this->loadAESPage($request, 'message', $messageType);
                 return CryptoService::loadPage($request, 'drop.message', $messageType);
             }
         } else {
@@ -182,7 +181,6 @@ class DropController extends Controller
                 $password = $lookup[0]->passwordHash;
                 if ($password != null) {
                     //load page with more fancy javascript
-                    //return $this->loadAESPage($request, 'encrypted');
                     return CryptoService::loadPage($request, 'drop.password');
                 } else {
                     //flash message to session (this is still not sent to the client in plaintext)
@@ -190,10 +188,9 @@ class DropController extends Controller
                     Session::flash('encMessageType', $messageType);
 
                     //now delete the message from the server
-                    //DB::delete('DELETE FROM t_message WHERE id = :id', ['id' => $messageID]);
+                    DB::delete('DELETE FROM t_message WHERE id = :id', ['id' => $messageID]);
 
                     //load regular message page
-                    //return $this->loadAESPage($request, 'message', $messageType);
                     return CryptoService::loadPage($request, 'drop.message', $messageType);
                 }
             }
