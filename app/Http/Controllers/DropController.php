@@ -38,10 +38,22 @@ class DropController extends Controller
      * AJAX implies the function is only loaded by scripts
      */
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\View\View
+     *
+     * simply returns the shell
+     */
     public function home_GET(Request $request){
         return $this->master($request);
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * Loads up the initial drop form
+     */
     public function home_POST(Request $request){
         return CryptoService::loadPage($request, 'drop.home');
     }
@@ -125,7 +137,13 @@ class DropController extends Controller
         }
     }
 
-
+    /**
+     * @param Request $request
+     * @param $messageID
+     * @return \Illuminate\View\View
+     *
+     * Makes sure messages exists then loads shell
+     */
     public function message_GET(Request $request, $messageID){
         $lookup = DB::select("SELECT message FROM t_drop WHERE dropID = :id", ['id' => $messageID]);
 
@@ -140,7 +158,14 @@ class DropController extends Controller
         }
     }
 
-    //THIS ALSO HANDLES THE PASSWORD BOX
+    /**
+     * @param Request $request
+     * @param $messageID
+     * @return array|string
+     *
+     * returns the encrypted page and message data, or the password box if encrypted
+     * then loaded again to retreive the encrypted message
+     */
     public function message_POST(Request $request, $messageID){
         //this gets triggered if a user as attempted a password check
         if ($request->has('hash'))
