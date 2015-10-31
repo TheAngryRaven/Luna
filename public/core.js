@@ -71,7 +71,7 @@ function decryptPage( data ){
     //logConsole( data.cipherText );
 
     logConsole( "%c Sending data to page ", 'background: black; color: white');
-    logConsole( decryptedMessage );
+    //logConsole( decryptedMessage );
     $("#encryptedContent").html( decryptedMessage );
 
     logConsole( "%c Setting server AES key ", 'background: black; color: white');
@@ -89,7 +89,7 @@ function copyToClipboard(text) {
 
 //one comment to rule them all
 function logConsole( text, style ){
-    //console.log(text, style);
+    console.log(text, style);
 }
 
 //simple regex function

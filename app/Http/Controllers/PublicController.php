@@ -25,11 +25,13 @@ class PublicController extends Controller
     }
 
     /**
-     * basically on GET you load one function this will do an auth check and the such
+     * basically on GET you load one function this will do an auth check and the such or redirect or whatever
      *
      * the second the page is finished loading the POST function gets called
+     * this is when the encrypted html, is sent to the browser
+     *
+     * AJAX implies the function is only loaded by scripts
      */
-
 
     public function home_GET(Request $request){
         return $this->master($request);
@@ -39,6 +41,7 @@ class PublicController extends Controller
         return CryptoService::loadPage($request, 'home');
     }
 
+
     public function login_GET(Request $request){
         return $this->master($request);
     }
@@ -46,6 +49,7 @@ class PublicController extends Controller
     public function login_POST(Request $request){
         return CryptoService::loadPage($request, 'login');
     }
+
 
     public function register_GET(Request $request){
         return $this->master($request);

@@ -78,4 +78,10 @@ class CryptoServiceProvider extends ServiceProvider
             Session::put('serverAES', $key); //static for now
         }
     }
+
+    //simple functions instead of importing all the crypto libs
+
+    static function decryptAES( $data, $password ){
+        return cryptAES::dec( $data, $password );
+    }
 }

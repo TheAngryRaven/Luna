@@ -8,6 +8,13 @@ $sessionKeys = Session::get("serverKeys");
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{{ URL::asset('theme/main.css')  }}" />
+
+    <script src="{{ URL::asset('jquery-1.11.3.min.js') }}"></script>
+    <script src="{{ URL::asset('crypto/jsencrypt.js') }}"></script>
+    <script src="{{ URL::asset('crypto/gibberish-aes.js') }}"></script>
+    <script src="{{ URL::asset('crypto/sha256.js') }}"></script>
+
+    <script src="{{ URL::asset('core.js') }}"></script>
 </head>
 <body>
 
@@ -42,11 +49,5 @@ It's a bonfire, turn the lights out
 I'm burnin' everything you muthafuckas talk about
 -->
 
-<script src="{{ URL::asset('jquery-1.11.3.min.js') }}"></script>
-<script src="{{ URL::asset('crypto/jsencrypt.js') }}"></script>
-<script src="{{ URL::asset('crypto/gibberish-aes.js') }}"></script>
-<script src="{{ URL::asset('crypto/sha256.js') }}"></script>
-
-<script src="{{ URL::asset('core.js') }}"></script>
 </body>
 </html>
