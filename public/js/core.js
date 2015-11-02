@@ -98,6 +98,12 @@ function validateEmail(email) {
     return re.test(email);
 }
 
+//simple regex function
+function validateUserName(userName) {
+    var re = /^[a-zA-Z0-9_-]{3,20}$/i;
+    return re.test(userName);
+}
+
 //maybe help show less white screen?
 $( document ).ready(function() {
     configureCrypto();

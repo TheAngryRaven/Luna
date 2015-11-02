@@ -58,4 +58,19 @@ class PublicController extends Controller
     public function register_POST(Request $request){
         return CryptoService::loadPage($request, 'register');
     }
+
+    public function register_AJAX(Request $request){
+        //get the AJAX post input
+        $input = $request->all();
+
+        $rover = CryptoService::decryptRover( $input['rover'] );
+
+        $response = array(
+            'status' => true,
+            'message' => 'Response received',
+            'result' => null
+        );
+
+        return $rover;
+    }
 }

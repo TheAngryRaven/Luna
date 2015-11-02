@@ -20,6 +20,7 @@ Route::post('login', 'PublicController@login_POST');
 
 Route::get('register', 'PublicController@register_GET');
 Route::post('register', 'PublicController@register_POST');
+Route::post('registration', 'PublicController@register_AJAX');
 
 //drop service
 Route::get('drop', 'DropController@home_GET');

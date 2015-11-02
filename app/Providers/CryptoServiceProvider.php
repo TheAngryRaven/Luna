@@ -84,4 +84,18 @@ class CryptoServiceProvider extends ServiceProvider
     static function decryptAES( $data, $password ){
         return cryptAES::dec( $data, $password );
     }
+
+    static function decryptRover( $roverEncrypted ){
+        //get server AES key
+        $serverAES = Session::get( 'serverAES' );
+
+        //decrypt rover
+        $roverString = cryptAES::dec( $roverEncrypted, $serverAES );
+
+        //turn it into an object
+        $rover = json_decode( $roverString, true);
+
+        //finally return
+        return $rover;
+    }
 }
