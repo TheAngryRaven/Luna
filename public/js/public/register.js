@@ -79,7 +79,7 @@ function registerUser(){
 }
 
 function callServer( rover ){
-    //console.log( rover );
+    console.log( rover );
 
     //turn rover to string
     var roverString = JSON.stringify( rover );
@@ -104,13 +104,38 @@ function callServer( rover ){
             registerBtn.prop("disabled",false);
         }
     }); //end of ajax
-
 }
 
 function roverResponse( data ){
-
     console.log( data );
+
+    if( data.status === true ){
+        //yay its good
+        alert( data.message );
+        window.location.href = extractDomain()+'login';
+    } else {
+        //nop u fuked up
+        alert( data.message );
+    }
 
     //reset button
     registerBtn.prop("disabled",false);
+}
+
+function extractDomain() {
+    var url = window.location.href;
+
+    var domain;
+    //find & remove protocol (http, ftp, etc.) and get domain
+    if (url.indexOf("://") > -1) {
+        domain = url.split('/')[2];
+    }
+    else {
+        domain = url.split('/')[0];
+    }
+
+    //find & remove port number
+    domain = domain.split(':')[0];
+
+    return 'http://'+domain+'/';
 }

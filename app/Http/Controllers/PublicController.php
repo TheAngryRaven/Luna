@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\UserServiceProvider;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
+use Redirect;
+
 use App\Providers\CryptoServiceProvider as CryptoService;
+use App\Providers\ValidationServiceProvider as ValidatorService;
+use App\Providers\UserServiceProvider as UserService;
 
 class PublicController extends Controller
 {
@@ -63,14 +68,34 @@ class PublicController extends Controller
         //get the AJAX post input
         $input = $request->all();
 
+        //decrypts json and turns it into an array
         $rover = CryptoService::decryptRover( $input['rover'] );
 
-        $response = array(
-            'status' => true,
-            'message' => 'Response received',
-            'result' => null
-        );
+        //checks against db and such
+        $validate = ValidatorService::validateRegister( $rover );
 
-        return $rover;
+        //return buffer
+        $response = null;
+
+        if($validate['fails'] == true){
+            //if any validation errors print them to the form but let the user keep previous data
+            $errors = $validate['errors']->toArray();
+
+            $response = array(
+                'status' => false,
+                'message' => 'Errors validating',
+                'result' => $errors
+            );
+        } else {
+            $attempt = UserService::create( $rover );
+
+            $response = array(
+                'status' => true,
+                'message' => 'User has been created, go to login page',
+                'result' => null
+            );
+        }
+
+        return $response;
     }
 }
