@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use DB;
+use Session;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -51,5 +52,65 @@ class UserServiceProvider extends ServiceProvider
         });
 
         return $result;
+    }
+
+    /**
+     * @param $username
+     * @param $password
+     * @param $passphrase
+     * @return bool
+     *
+     * Check the DB to see if the user is good to go
+     *
+     * and setup a session token
+     */
+    static function login( $username, $password, $passphrase ){
+        $auth = array(
+            'user' => $username,
+            'pass' => $password,
+            'phrase' => $passphrase
+        );
+
+        $dbCall = DB::select("SELECT userID FROM t_user WHERE userName = :user AND passwordHash = :pass AND encryptionHash = :phrase LIMIT 1", $auth);
+
+        if($dbCall == null){
+            /**
+             * auth failed
+             */
+            return false;
+        } else {
+            /**
+             * Correct Password
+             * This is when we create our cookie
+             */
+
+            $userData = array();
+            $userData['uid'] = $dbCall[0]->userID;
+            $userData['loggedin'] = true;
+
+            //creates cookie with this array
+            Session::set('user', $userData);
+
+            return true;
+        }
+    }
+
+    static function logout(){
+        Session::forget('user');
+    }
+
+    /**
+     * @return bool
+     *
+     * Simply checks to see if the user is logged in
+     */
+    static function isLoggedIn(){
+        $user = Session::get( 'user', null );
+
+        if($user == null){
+            return false;
+        } else {
+            return true;
+        }
     }
 }

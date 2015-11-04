@@ -55,6 +55,41 @@ class PublicController extends Controller
         return CryptoService::loadPage($request, 'login');
     }
 
+    public function login_AJAX(Request $request){
+        //get the AJAX post input
+        $input = $request->all();
+
+        //decrypts json and turns it into an array
+        $rover = CryptoService::decryptRover( $input['rover'] );
+
+        //attempt login
+        $auth = UserService::login( $rover['UserName'], $rover['PasswordHash'], $rover['PassphraseHash'] );
+
+        //what did it do
+        $response = null;
+        if( $auth == true ) {
+            //yay logged in
+            $response = array(
+                'status' => true,
+                'message' => 'User Authenticated',
+                'result' => null
+            );
+        } else {
+            //lol nope
+            $response = array(
+                'status' => false,
+                'message' => 'Failed to Authenticate',
+                'result' => null
+            );
+        }
+
+        //prepare and encrypt the ajax response
+        $encryptedResponse = json_encode( $response );
+        $encryptedResponse = CryptoService::encryptResponse( $input['handshake'], $encryptedResponse );
+
+        return [ 'cipherText' => $encryptedResponse ];
+    }
+
 
     public function register_GET(Request $request){
         return $this->master($request);
@@ -96,9 +131,15 @@ class PublicController extends Controller
             );
         }
 
+        //prepare and encrypt the ajax response
         $encryptedResponse = json_encode( $response );
         $encryptedResponse = CryptoService::encryptResponse( $input['handshake'], $encryptedResponse );
 
         return [ 'cipherText' => $encryptedResponse ];
+    }
+
+    public function logoff_GET(Request $request){
+        UserService::logout();
+        return redirect('/');
     }
 }

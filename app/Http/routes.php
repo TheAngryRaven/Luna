@@ -17,6 +17,8 @@ Route::post('/', 'PublicController@home_POST');
 
 Route::get('login', 'PublicController@login_GET');
 Route::post('login', 'PublicController@login_POST');
+Route::post('auth', 'PublicController@login_AJAX');
+Route::get('logoff', 'PublicController@logoff_GET');
 
 Route::get('register', 'PublicController@register_GET');
 Route::post('register', 'PublicController@register_POST');

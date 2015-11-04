@@ -104,6 +104,24 @@ function validateUserName(userName) {
     return re.test(userName);
 }
 
+function extractDomain() {
+    var url = window.location.href;
+
+    var domain;
+    //find & remove protocol (http, ftp, etc.) and get domain
+    if (url.indexOf("://") > -1) {
+        domain = url.split('/')[2];
+    }
+    else {
+        domain = url.split('/')[0];
+    }
+
+    //find & remove port number
+    domain = domain.split(':')[0];
+
+    return 'http://'+domain+'/';
+}
+
 //maybe help show less white screen?
 $( document ).ready(function() {
     configureCrypto();

@@ -1,77 +1,51 @@
-/**
- * ONLY PASSWORD HASHES ARE SENT OVER THE WIRE
- */
-var userEmail               = $('#userEmail');
+
 var userName                = $('#userName');
 var userPassword            = $('#userPassword');
-var userPasswordConfirm     = $('#userPasswordConfirm');
 var userPassphrase          = $('#userPassphrase');
-var userPassphraseConfirm   = $('#userPassphraseConfirm');
-var registerBtn             = $('#registerBtn');
+var authBtn                 = $('#authBtn');
 
-//checks all validation then launch function to send object
-function registerUser(){
+function authUser(){
     //eventually to prevent double posting and shit
-    registerBtn.prop("disabled",true);
+    authBtn.prop("disabled",true);
 
-    if( userEmail.val() !== ''&& validateEmail( userEmail.val() ) === false ){
-        alert('If using an email, it must be a valid one');
-        registerBtn.prop("disabled",false);
-    }else if( userName.val() === '' ) {
+    if( userName.val() === '' ) {
         //todo: ajax check
         alert('Must enter a username');
-        registerBtn.prop("disabled", false);
+        authBtn.prop("disabled", false);
     } else if( validateUserName( userName.val() ) === false ){
         alert('Username must be between 3-20 characters, and contain no spaces. only allowed characters are A-Z 0-9 _ and -');
-        registerBtn.prop("disabled",false);
+        authBtn.prop("disabled",false);
     }else if( userPassword.val() === '' || userPassword.val() == null ){
         alert('You must include a password');
-        registerBtn.prop("disabled",false);
+        authBtn.prop("disabled",false);
     }else if( userPassword.val().length < 6 ){
         alert('Password Not Long Enough [min: 6]');
-        registerBtn.prop("disabled",false);
-    }else if( userPassword.val() !== userPasswordConfirm.val() ){
-        alert('Password does not match confirmation');
-        registerBtn.prop("disabled",false);
+        authBtn.prop("disabled",false);
     }else if( userPassphrase.val() === '' || userPassphrase.val() == null ){
         alert('You must include a passphrase');
-        registerBtn.prop("disabled",false);
+        authBtn.prop("disabled",false);
     }else if( userPassphrase.val().length < 10 ){
         alert('Passphrase Not Long Enough [min: 10]');
-        registerBtn.prop("disabled",false);
-    }else if( userPassphrase.val() !== userPassphraseConfirm.val() ){
-        alert('Passphrase does not match confirmation');
-        registerBtn.prop("disabled",false);
-    } else {
+        authBtn.prop("disabled",false);
+    }else  {
         //finally were good to fuckin go
 
         //setup post object
         //rover is going to be the standard post data object
         var rover = {
-            Email: null,
             UserName: null,
             PasswordHash: null,
             PassphraseHash: null
         };
-
-        //set null for null email
-        if( userEmail.val() === '' ) {
-            rover.Email = null;
-        } else {
-            rover.Email = userEmail.val();
-            userEmail.val('');
-        }
 
         rover.UserName = userName.val();
         userName.val('');
 
         rover.PasswordHash = CryptoJS.SHA256( userPassword.val()).toString();
         userPassword.val('');
-        userPasswordConfirm.val('');
 
         rover.PassphraseHash = CryptoJS.SHA256( userPassphrase.val()).toString();
         userPassphrase.val('');
-        userPassphraseConfirm.val('');
 
         //calls the server using the rover object
         callServer( rover );
@@ -89,7 +63,7 @@ function callServer( rover ){
     var ajaxToken = $('#token').val();
 
     $.ajax({
-        url: 'registration',
+        url: 'auth',
         type: "POST",
         data: {
             'X-CSRF-TOKEN': ajaxToken,
@@ -114,13 +88,13 @@ function roverResponse( data ){
 
     if( decryptedData.status === true ){
         //yay its good
-        alert( decryptedData.message );
-        window.location.href = extractDomain()+'login';
+        //alert( decryptedData.message );
+        window.location.href = extractDomain();
     } else {
         //nop u fuked up
         alert( decryptedData.message );
     }
 
     //reset button
-    registerBtn.prop("disabled",false);
+    authBtn.prop("disabled",false);
 }
