@@ -107,15 +107,18 @@ function callServer( rover ){
 }
 
 function roverResponse( data ){
-    console.log( data );
+    var decryptedData = GibberishAES.dec( data.cipherText, satellite.connection.aesKey);
+    decryptedData = JSON.parse( decryptedData );
 
-    if( data.status === true ){
+    console.log( decryptedData );
+
+    if( decryptedData.status === true ){
         //yay its good
-        alert( data.message );
+        alert( decryptedData.message );
         window.location.href = extractDomain()+'login';
     } else {
         //nop u fuked up
-        alert( data.message );
+        alert( decryptedData.message );
     }
 
     //reset button

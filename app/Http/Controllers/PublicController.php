@@ -96,6 +96,9 @@ class PublicController extends Controller
             );
         }
 
-        return $response;
+        $encryptedResponse = json_encode( $response );
+        $encryptedResponse = CryptoService::encryptResponse( $input['handshake'], $encryptedResponse );
+
+        return [ 'cipherText' => $encryptedResponse ];
     }
 }

@@ -98,4 +98,22 @@ class CryptoServiceProvider extends ServiceProvider
         //finally return
         return $rover;
     }
+
+    static function encryptResponse( $handshake, $response ){
+        //setup encryption engine with servers keys
+        $privateKey = Session::get("serverPrivate");
+        $serverAES = Session::get('serverAES');
+        $rsa = new \phpseclib\Crypt\RSA();
+        $rsa->setEncryptionMode( $rsa::ENCRYPTION_PKCS1 );
+
+        //decrypt the clients AESkey from the
+        $rsa->loadKey( $privateKey );
+        $clientAESkey = $rsa->decrypt( base64_decode( $handshake ) );
+
+        //use AES to encrypt the data
+        $AESEncrypted = cryptAES::enc($response, $clientAESkey);
+
+        return $AESEncrypted;
+
+    }
 }
