@@ -39,6 +39,9 @@ class PublicController extends Controller
      */
 
     public function home_GET(Request $request){
+        //bounce if logged in
+        if( UserService::isLoggedIn() ){ return Redirect('user/dashboard'); }
+
         return $this->master($request);
     }
 
@@ -48,6 +51,9 @@ class PublicController extends Controller
 
 
     public function login_GET(Request $request){
+        //bounce if logged in
+        if( UserService::isLoggedIn() ){ return Redirect('user/dashboard'); }
+
         return $this->master($request);
     }
 
@@ -92,6 +98,9 @@ class PublicController extends Controller
 
 
     public function register_GET(Request $request){
+        //bounce if logged in
+        if( UserService::isLoggedIn() ){ return Redirect('user/dashboard'); }
+
         return $this->master($request);
     }
 

@@ -24,6 +24,17 @@ Route::get('register', 'PublicController@register_GET');
 Route::post('register', 'PublicController@register_POST');
 Route::post('registration', 'PublicController@register_AJAX');
 
+//logged in links
+Route::get('user/dashboard', 'UserController@dashboard_GET');
+Route::post('user/dashboard', 'UserController@dashboard_POST');
+
+Route::get('user/contacts', 'UserController@contacts_GET');
+Route::post('user/contacts', 'UserController@contacts_POST');
+
+Route::get('user/account', 'UserController@account_GET');
+Route::post('user/account', 'UserController@account_POST');
+
+
 //drop service
 Route::get('drop', 'DropController@home_GET');
 Route::post('drop', 'DropController@home_POST');

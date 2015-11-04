@@ -11,7 +11,9 @@
     } else {
 ?>
     <div id="nav" style="margin-bottom: 1em;">
-        <a href="{{ URL::to('/') }}" class="button">home</a>
+        <a href="{{ URL::to('user/dashboard') }}" class="button">Dashboard</a>
+        <a href="{{ URL::to('user/contacts') }}" class="button">Contacts</a>
+        <a href="{{ URL::to('user/account') }}" class="button">Account</a>
         <a href="{{ URL::to('logoff') }}" class="button">log off</a>
     </div>
 <?php
