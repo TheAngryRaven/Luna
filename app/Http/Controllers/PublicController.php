@@ -32,7 +32,7 @@ class PublicController extends Controller
     /**
      * basically on GET you load one function this will do an auth check and the such or redirect or whatever
      *
-     * the second the page is finished loading the POST function gets called
+     * When the page is finished loading the POST function gets called
      * this is when the encrypted html, is sent to the browser
      *
      * AJAX implies the function is only loaded by scripts

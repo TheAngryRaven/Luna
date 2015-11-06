@@ -9,10 +9,16 @@ var satellite = {
         privateKey: null,
         aesKey:     null,
         serverRSA:  null,
-        serverAES:  null
+        serverAES:  null,
+        handshake:  null //your lss aes key encrypted with the servers public key
     },
     mPass:          null,
     imageBuffer:    null
+};
+
+//handles logged in user information
+var apollo = {
+    encryptionKey: null
 };
 
 //these two functions prep the "javascript ssl"
@@ -104,6 +110,7 @@ function validateUserName(userName) {
     return re.test(userName);
 }
 
+//gets the domain name from the browser
 function extractDomain() {
     var url = window.location.href;
 

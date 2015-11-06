@@ -1,6 +1,17 @@
+
+var dropImageField = $('#imageField');
+var dropClientImage = $('#clientImage');
+var dropMessageField = $('#messageField');
+var dropClientMessage = $('#clientMessage');
+
+var dropSendTo = $('#sendTo');
+var dropEncryptWith = $('#encryptWith');
+var dropEncryptBtn = $('#encryptBtn');
+
+
 //sets up hiding the message box or the image field
 function setDisplays(){
-    $('#imageField').hide();
+    dropImageField.hide();
 
     //pick one nerd
     $( "input[name='question']" ).change(function() {
@@ -8,21 +19,20 @@ function setDisplays(){
         var isImage = $( "#askImage:checked" ).val();
         if(isImage === "on"){
             //doing image
-            $('#imageField').show();
-            $('#messageField').hide();
+            dropImageField.show();
+            dropMessageField.hide();
 
-            $('#clientMessage').val('');
+            dropClientMessage.val('');
         }
         if(isMessage === "on"){
             //doing message
-            $('#messageField').show();
-            $('#imageField').hide();
+            dropMessageField.show();
+            dropImageField.hide();
 
             //reset image "buffer"
-            satellite.imageBuffer = null;
-            $('#clientImage').val("");
+            satellite.drop.imageBuffer = null;
+            dropClientMessage.val("");
         }
-
     });
 
     //for geting image data
@@ -76,7 +86,7 @@ function encryptMessage() {
     var message = $('#clientMessage').val();
     message = message.trim();
 
-    $('#encryptBtn').prop("disabled",true);
+    dropEncryptBtn.prop("disabled",true);
 
     //check message type
     var isMessage = $("#askMessage:checked").val();
@@ -92,7 +102,7 @@ function encryptMessage() {
     //check message size (there's also a serverside check)
     var limit = 1024;
 
-    var mPassword = $('#encryptWith').val();
+    var mPassword = dropEncryptWith.val();
 
     if (type === 'text' && message === '' || message === null) {
         alert('Cannot encrypt nothing');
@@ -102,7 +112,7 @@ function encryptMessage() {
         alert('Message exceeds ' + limit + ' characters');
         //re-enable button
         $('#encryptBtn').prop("disabled",false);
-    } else if( type === 'image' && satellite.imageBuffer === null ){
+    } else if( type === 'image' && satellite.drop.imageBuffer === null ){
         alert( 'no image selected' );
         //re-enable button
         $('#encryptBtn').prop("disabled",false);
@@ -115,7 +125,7 @@ function encryptMessage() {
 
         var error = false;
         //check if email
-        var email = $('#sendTo').val();
+        var email = dropSendTo.val();
 
         //make sure only to error if something in box
         if( ( email !== '' && email !== null) && (validateEmail(email) === false)){
@@ -126,7 +136,7 @@ function encryptMessage() {
             logConsole( email );
 
             //encrypt email
-            email = GibberishAES.enc(email, satellite.connection.serverAES);
+            email = GibberishAES.enc(email, satellite.lss.serverAES);
         }
 
         //password validation
@@ -141,7 +151,7 @@ function encryptMessage() {
                 if( type === 'text' ) {
                     message = GibberishAES.enc(message, mPassword);
                 } else {
-                    message = GibberishAES.enc(satellite.imageBuffer, mPassword);
+                    message = GibberishAES.enc(satellite.drop.imageBuffer, mPassword);
                 }
 
                 logConsole( "%c AES Message Size  ", 'background: black; color: white');
@@ -156,7 +166,7 @@ function encryptMessage() {
 
                 //now encrypt
                 logConsole( "%c Encrypting password  ", 'background: black; color: white');
-                mPassword = GibberishAES.enc(mPassword, satellite.connection.serverAES);
+                mPassword = GibberishAES.enc(mPassword, satellite.lss.serverAES);
             }
         }
 
@@ -164,17 +174,17 @@ function encryptMessage() {
         if( error !== true ){
             logConsole( "%c Encrypt Message with server AES ", 'background: black; color: white');
 
-            var encryptedMessage = GibberishAES.enc(message, satellite.connection.serverAES);
+            var encryptedMessage = GibberishAES.enc(message, satellite.lss.serverAES);
             var ajaxToken = $('#token').val();
             //logConsole( encryptedMessage );
 
+            //todo: encrypt
             $.ajax({
                 url: 'encrypt',
                 type: "POST",
                 data: {
-                    'X-CSRF-TOKEN': ajaxToken,
-                    '_token': ajaxToken,
-                    'handshake': satellite.connection.handshake,
+                    '_token': satellite.lss.token,
+                    'handshake': satellite.lss.handshake,
                     'message': encryptedMessage,
                     'password': mPassword,
                     'email': email,
@@ -184,6 +194,7 @@ function encryptMessage() {
                     serverResponse(data);
                 }, error: function () {
                     alert("[something happened encrypting your message]");
+                    $('#encryptBtn').prop("disabled",false);
                 }
             }); //end of ajax
 
@@ -211,16 +222,16 @@ function serverResponse( data ){
     }
 
     //resetting message box
-    $('#clientMessage').val('');
-    $('#sendTo').val('');
-    $('#encryptWith').val('');
+    dropClientMessage.val('');
+    dropSendTo.val('');
+    dropEncryptWith.val('');
 
     //reset image "buffer"
-    satellite.imageBuffer = null;
-    $('#clientImage').val("");
+    satellite.drop.imageBuffer = null;
+    dropClientImage.val("");
 
     //re-enable button
-    $('#encryptBtn').prop("disabled",false);
+    dropEncryptBtn.prop("disabled",false);
 
     //we done
     logConsole( "%c MESSAGE SECURELY UPLOADED ", 'background: #222; color: #FF7519');

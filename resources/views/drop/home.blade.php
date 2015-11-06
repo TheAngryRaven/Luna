@@ -1,3 +1,5 @@
+@include('nav')
+
 <h2>Lunar Messaging</h2>
 <p>Hot drop service, no account required.</p>
 <div>

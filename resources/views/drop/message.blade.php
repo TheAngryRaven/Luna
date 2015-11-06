@@ -1,3 +1,5 @@
+
+
 <?php
 $message = Session::get('encMessage');
 $type = Session::get('encMessageType');

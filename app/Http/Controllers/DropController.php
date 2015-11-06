@@ -32,7 +32,7 @@ class DropController extends Controller
     /**
      * basically on GET you load one function this will do an auth check and the such or redirect or whatever
      *
-     * the second the page is finished loading the POST function gets called
+     * When the page is finished loading the POST function gets called
      * this is when the encrypted html, is sent to the browser
      *
      * AJAX implies the function is only loaded by scripts
@@ -106,9 +106,10 @@ class DropController extends Controller
                 $url = 'sent';
 
                 //send notification email
-                EmailService::message($email, URL::to('message/' . $id));
+                //EmailService::message($email, URL::to('message/' . $id));
+                EmailService::message($email, URL::to('/').'#message/'.$id);
             } else {
-                $url = URL::to('message/' . $id);
+                $url = URL::to('/').'#message/'.$id;
             }
 
             if ($encryptedHash != false) {
@@ -188,7 +189,7 @@ class DropController extends Controller
                 Session::flash('encMessageType', $messageType);
 
                 //now delete the message from the server
-                DB::delete('DELETE FROM t_message WHERE id = :id', ['id' => $messageID]);
+                DB::delete('DELETE FROM t_drop WHERE dropID = :id', ['id' => $messageID]);
 
                 //load the encrypted message
                 return CryptoService::loadPage($request, 'drop.message', $messageType);
@@ -213,7 +214,7 @@ class DropController extends Controller
                     Session::flash('encMessageType', $messageType);
 
                     //now delete the message from the server
-                    DB::delete('DELETE FROM t_message WHERE id = :id', ['id' => $messageID]);
+                    DB::delete('DELETE FROM t_drop WHERE dropID = :id', ['id' => $messageID]);
 
                     //load regular message page
                     return CryptoService::loadPage($request, 'drop.message', $messageType);

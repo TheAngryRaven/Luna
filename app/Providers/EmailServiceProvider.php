@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Mail;
 
 class EmailServiceProvider extends ServiceProvider
 {

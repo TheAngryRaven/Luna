@@ -1,7 +1,7 @@
 //for loading password protected messages
 //sends password hash to server to check
 function decryptMessage(){
-    logConsole( "%c Attempting to decrypt message ", 'background: #222; color: #66FF33');
+    logConsole( "%c Attempting to decrypt YOUR message ", 'background: #222; color: #66FF33');
 
     var password = $('#decryptPassword');
     //disable to prevent double post and lost message
@@ -15,7 +15,7 @@ function decryptMessage(){
         $('#decryptBtn').prop("disabled",false);
     } else {
         var passwordHash = CryptoJS.SHA256( password.val() );
-        var encryptedHash = GibberishAES.enc( passwordHash, satellite.connection.serverAES );
+        var encryptedHash = GibberishAES.enc( passwordHash, satellite.lss.serverAES );
         //password.val('');
         satellite.mPass = password.val();
 
@@ -23,19 +23,21 @@ function decryptMessage(){
         //call new url for attempt
         var currentURL = window.location.href;
         var ajaxToken = $('#token').val();
+        //todo encrypt
         $.ajax({
-            url: currentURL,
+            //url: currentURL,
+            url: extractDomain()+findPage(),
             type:"POST",
             data: {
-                'X-CSRF-TOKEN': ajaxToken,
-                '_token':       ajaxToken,
-                'handshake':    satellite.connection.handshake,
+                '_token':       satellite.lss.token,
+                'handshake':    satellite.lss.handshake,
                 'hash':         encryptedHash
             },
             success:function(data){
                 attemptDecryption( data );
             },error:function(){
                 alert("[something happened]");
+                $('#decryptBtn').prop("disabled",false);
             }
         }); //end of ajax
     }
@@ -48,7 +50,7 @@ function attemptDecryption(data){
         alert('invalid password');
         $('#decryptPassword').val('');
     } else {
-        var decryptedServerMessage = GibberishAES.dec( data.cipherText, satellite.connection.aesKey);
+        var decryptedServerMessage = GibberishAES.dec( data.cipherText, satellite.lss.aesKey);
 
         logConsole( "%c Sending encrypted data to page ", 'background: black; color: white');
         //logConsole( decryptedServerMessage );

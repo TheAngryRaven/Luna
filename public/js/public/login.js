@@ -41,10 +41,11 @@ function authUser(){
         rover.UserName = userName.val();
         userName.val('');
 
-        rover.PasswordHash = CryptoJS.SHA256( userPassword.val()).toString();
+        rover.PasswordHash = CryptoJS.SHA256( userPassword.val() ).toString();
         userPassword.val('');
 
-        rover.PassphraseHash = CryptoJS.SHA256( userPassphrase.val()).toString();
+        rover.PassphraseHash = CryptoJS.SHA256( userPassphrase.val() ).toString();
+        //apollo.encryptionKey = userPassphrase.val(); //stored because we use this to encrypt/decrypt your keys
         userPassphrase.val('');
 
         //calls the server using the rover object
@@ -76,6 +77,7 @@ function callServer( rover ){
         }, error: function () {
             alert("[something happened attempting to register]");
             registerBtn.prop("disabled",false);
+            //apollo.encryptionKey = null;
         }
     }); //end of ajax
 }
@@ -92,6 +94,7 @@ function roverResponse( data ){
         window.location.href = extractDomain();
     } else {
         //nop u fuked up
+        //apollo.encryptionKey = null;
         alert( decryptedData.message );
     }
 

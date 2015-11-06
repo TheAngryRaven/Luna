@@ -14,18 +14,18 @@ $sessionKeys = Session::get("serverKeys");
     <script src="{{ URL::asset('crypto/gibberish-aes.js') }}"></script>
     <script src="{{ URL::asset('crypto/sha256.js') }}"></script>
 
-    <script src="{{ URL::asset('js/core.js') }}"></script>
+    <script src="{{ URL::asset('js/apollo.js') }}"></script>
+    <!--script src="{{ URL::asset('js/core.js') }}"></script-->
 </head>
 <body>
 
 <!-- Wrapper -->
 <div id="wrapper">
 
-@include('nav')
 
     <!-- Main -->
     <section id="main">
-        <div id="encryptedContent"><p style="margin: 0;">Please Wait<br>Generating encryption keys</p></div>
+        <div id="encryptedContent">@include('nav')<p style="margin: 0;">Please Wait<br>Generating encryption keys</p></div>
     </section>
 
     <!-- lazy hack for now -->

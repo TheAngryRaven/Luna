@@ -14,9 +14,11 @@
 //public facing links
 Route::get('/', 'PublicController@home_GET');
 Route::post('/', 'PublicController@home_POST');
+Route::post('home', 'PublicController@home_POST');
 
 Route::get('login', 'PublicController@login_GET');
 Route::post('login', 'PublicController@login_POST');
+
 Route::post('auth', 'PublicController@login_AJAX');
 Route::get('logoff', 'PublicController@logoff_GET');
 
@@ -34,6 +36,8 @@ Route::post('user/contacts', 'UserController@contacts_POST');
 Route::get('user/account', 'UserController@account_GET');
 Route::post('user/account', 'UserController@account_POST');
 
+//odd new page controller?
+Route::post('load/{pageName}', 'PageController@pageLoad_AJAX');
 
 //drop service
 Route::get('drop', 'DropController@home_GET');

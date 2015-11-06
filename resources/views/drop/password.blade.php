@@ -1,3 +1,5 @@
+@include('nav')
+
 <h2>Lunar Messaging</h2>
 <div  style="margin:0;">
     <div class="field">

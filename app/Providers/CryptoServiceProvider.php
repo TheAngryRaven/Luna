@@ -54,7 +54,7 @@ class CryptoServiceProvider extends ServiceProvider
         $AESEncrypted = cryptAES::enc($pageHTML, $clientAESkey);
 
         //send the AES encrypted page to client
-        return ['cipherText' => $AESEncrypted, 'serverAES' => cryptAES::enc( $serverAES, $clientAESkey ), 'other' => $other];
+        return ['cipherText' => $AESEncrypted, 'handshake' => cryptAES::enc( $serverAES, $clientAESkey ), 'other' => $other];
     }
 
     /**
