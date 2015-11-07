@@ -78,7 +78,8 @@ function configureCrypto() {
 
 //encrypts your aes key (page data key) with the server public key
 function createHandshake( serverKey, aesKey ){
-    logConsole( "%c creating lss handshake ", 'background: black; color: white');    var shakeCrypto = new JSEncrypt();
+    logConsole( "%c creating lss handshake ", 'background: black; color: white');
+    var shakeCrypto = new JSEncrypt();
     shakeCrypto.setKey( serverKey );
     return shakeCrypto.encrypt( aesKey );
 }
@@ -88,20 +89,51 @@ function loadPage( pageName ){
     logConsole( "%c Attempting to load ["+pageName+"] ", 'background: #222; color: #66FF33');
 
     $.ajax({
-        url: extractDomain()+''+pageName,
+        url: extractDomain()+pageName,
         type: 'POST',
         data: {
             '_token': satellite.lss.token,
             'handshake': satellite.lss.handshake
         },
-        success: function(data) {
-            decryptPage(data);
+        success: function(data, status, response) {
+            loadResponse(data, response);
         },
-        error: function(data) {
-            alert('[something happened, status: '+data.status+']');
-            //console.log( data );
+        error: function(response) {
+            //loadError(data);
+            loadResponse(null,response)
         }
     });//end of ajax
+}
+
+//error handeler
+function loadError(data){
+    var statusCode  = data.status;
+    alert('[something happened, status: '+statusCode+']');
+    console.log( data );
+}
+
+//fancy function to handle a redirect or what
+function loadResponse(data, response){
+    var statusCode = response.status;
+    if(statusCode === 500){
+        //server issue
+        alert('Technical issues requesting data');
+    } else if(statusCode === 404) {
+        //lol not found
+        alert('Page Not Found');
+
+        window.location.href = extractDomain()+'#'+HOME;
+    } else if(statusCode === 200) {
+        //good to go
+
+        if( data.status === 302 ){
+            window.location.href = extractDomain()+data.location;
+        } else if( data.status === 500){
+            alert( 'Technical issue with request, please refresh' );
+        }else {
+            decryptPage(data);
+        }
+    }
 }
 
 //this decrypts the page data the server has sent us
@@ -114,7 +146,7 @@ function decryptPage( data ){
     } else {
 
         //actually decrypt the message
-        var decryptedMessage = GibberishAES.dec( data.cipherText, satellite.lss.aesKey);
+        var decryptedMessage = GibberishAES.dec( data.pageData, satellite.lss.aesKey);
 
         //send data to pagte
         $("#encryptedContent").html( decryptedMessage );

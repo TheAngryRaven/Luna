@@ -64,14 +64,13 @@ class UserServiceProvider extends ServiceProvider
      *
      * and setup a session token
      */
-    static function login( $username, $password, $passphrase ){
+    static function login( $username, $password ){
         $auth = array(
             'user' => $username,
-            'pass' => $password,
-            'phrase' => $passphrase
+            'pass' => $password
         );
 
-        $dbCall = DB::select("SELECT userID FROM t_user WHERE userName = :user AND passwordHash = :pass AND encryptionHash = :phrase LIMIT 1", $auth);
+        $dbCall = DB::select("SELECT userID FROM t_user WHERE userName = :user AND passwordHash = :pass LIMIT 1", $auth);
 
         if($dbCall == null){
             /**

@@ -21,13 +21,7 @@ function authUser(){
     }else if( userPassword.val().length < 6 ){
         alert('Password Not Long Enough [min: 6]');
         authBtn.prop("disabled",false);
-    }else if( userPassphrase.val() === '' || userPassphrase.val() == null ){
-        alert('You must include a passphrase');
-        authBtn.prop("disabled",false);
-    }else if( userPassphrase.val().length < 10 ){
-        alert('Passphrase Not Long Enough [min: 10]');
-        authBtn.prop("disabled",false);
-    }else  {
+    }else {
         //finally were good to fuckin go
 
         //setup post object
@@ -44,10 +38,6 @@ function authUser(){
         rover.PasswordHash = CryptoJS.SHA256( userPassword.val() ).toString();
         userPassword.val('');
 
-        rover.PassphraseHash = CryptoJS.SHA256( userPassphrase.val() ).toString();
-        //apollo.encryptionKey = userPassphrase.val(); //stored because we use this to encrypt/decrypt your keys
-        userPassphrase.val('');
-
         //calls the server using the rover object
         callServer( rover );
     }
@@ -58,7 +48,7 @@ function callServer( rover ){
 
     //turn rover to string
     var roverString = JSON.stringify( rover );
-    var roverEncrypted = GibberishAES.enc( roverString, satellite.connection.serverAES );
+    var roverEncrypted = GibberishAES.enc( roverString, satellite.lss.serverAES );
 
     //laravel "form" token
     var ajaxToken = $('#token').val();
@@ -69,7 +59,7 @@ function callServer( rover ){
         data: {
             'X-CSRF-TOKEN': ajaxToken,
             '_token': ajaxToken,
-            'handshake': satellite.connection.handshake,
+            'handshake': satellite.lss.handshake,
             'rover': roverEncrypted
         },
         success: function (data) {
@@ -83,7 +73,7 @@ function callServer( rover ){
 }
 
 function roverResponse( data ){
-    var decryptedData = GibberishAES.dec( data.cipherText, satellite.connection.aesKey);
+    var decryptedData = GibberishAES.dec( data.cipherText, satellite.lss.aesKey);
     decryptedData = JSON.parse( decryptedData );
 
     console.log( decryptedData );
@@ -91,7 +81,7 @@ function roverResponse( data ){
     if( decryptedData.status === true ){
         //yay its good
         //alert( decryptedData.message );
-        window.location.href = extractDomain();
+        window.location.href = extractDomain()+'#user/dashboard';
     } else {
         //nop u fuked up
         //apollo.encryptionKey = null;

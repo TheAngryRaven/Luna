@@ -50,7 +50,7 @@ function attemptDecryption(data){
         alert('invalid password');
         $('#decryptPassword').val('');
     } else {
-        var decryptedServerMessage = GibberishAES.dec( data.cipherText, satellite.lss.aesKey);
+        var decryptedServerMessage = GibberishAES.dec( data.pageData, satellite.lss.aesKey);
 
         logConsole( "%c Sending encrypted data to page ", 'background: black; color: white');
         //logConsole( decryptedServerMessage );

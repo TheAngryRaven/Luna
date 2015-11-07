@@ -43,7 +43,7 @@ class CryptoServiceProvider extends ServiceProvider
         $rsa = new \phpseclib\Crypt\RSA();
         $rsa->setEncryptionMode( $rsa::ENCRYPTION_PKCS1 );
 
-        //decrypt the clients AESkey from the
+        //decrypt the clients AESkey from the handshake
         $rsa->loadKey( $privateKey );
         $clientAESkey = $rsa->decrypt( base64_decode( $input['handshake'] ) );
 
@@ -53,8 +53,17 @@ class CryptoServiceProvider extends ServiceProvider
         //use AES to encrypt the page data
         $AESEncrypted = cryptAES::enc($pageHTML, $clientAESkey);
 
-        //send the AES encrypted page to client
-        return ['cipherText' => $AESEncrypted, 'handshake' => cryptAES::enc( $serverAES, $clientAESkey ), 'other' => $other];
+        //handshake
+        $handshake = cryptAES::enc( $serverAES, $clientAESkey );
+
+        $output = [
+            'pageData' => $AESEncrypted,
+            'handshake' => $handshake,
+            'other' => $other,
+            'status' => 200
+        ];
+
+        return $output;
     }
 
     /**

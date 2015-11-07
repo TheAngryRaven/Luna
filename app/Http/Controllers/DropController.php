@@ -134,7 +134,7 @@ class DropController extends Controller
             //return resulting link
             return $url;
         } else {
-            return '[something big happened]';
+            return [ 'status' => 500, 'message' => 'Image too large too upload' ];
         }
     }
 
@@ -180,7 +180,7 @@ class DropController extends Controller
 
             if ($lookup == null) {
                 //does not exit
-                return 'no';
+                return [ 'status' => 302, 'location' => '#drop' ];
             } else {
                 $message = $lookup[0]->message;
                 $messageType = $lookup[0]->messageType;
@@ -200,7 +200,7 @@ class DropController extends Controller
 
             if ($lookup == null) {
                 //does not exit
-                return 'no';
+                return [ 'status' => 302, 'location' => '#drop' ];
             } else {
                 $message = $lookup[0]->message;
                 $messageType = $lookup[0]->messageType;

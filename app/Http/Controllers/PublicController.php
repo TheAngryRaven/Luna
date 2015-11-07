@@ -40,7 +40,7 @@ class PublicController extends Controller
 
     public function home_GET(Request $request){
         //bounce if logged in
-        if( UserService::isLoggedIn() ){ return Redirect('user/dashboard'); }
+        //if( UserService::isLoggedIn() ){ return Redirect('user/dashboard'); }
 
         return $this->master($request);
     }
@@ -49,13 +49,6 @@ class PublicController extends Controller
         return CryptoService::loadPage($request, 'home');
     }
 
-
-    public function login_GET(Request $request){
-        //bounce if logged in
-        if( UserService::isLoggedIn() ){ return Redirect('user/dashboard'); }
-
-        return $this->master($request);
-    }
 
     public function login_POST(Request $request){
         return CryptoService::loadPage($request, 'login');
@@ -96,13 +89,6 @@ class PublicController extends Controller
         return [ 'cipherText' => $encryptedResponse ];
     }
 
-
-    public function register_GET(Request $request){
-        //bounce if logged in
-        if( UserService::isLoggedIn() ){ return Redirect('user/dashboard'); }
-
-        return $this->master($request);
-    }
 
     public function register_POST(Request $request){
         return CryptoService::loadPage($request, 'register');
