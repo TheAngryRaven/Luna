@@ -15,8 +15,16 @@
 Route::get('/', 'PublicController@home_GET');
 Route::post('/', 'PublicController@home_POST');
 Route::post('home', 'PublicController@home_POST');
-Route::get('logoff', 'PublicController@logoff_GET');
 
+//drop service
+Route::post('drop', 'DropController@home_POST');
+Route::post('encrypt', 'AjaxController@encryptDrop_AJAX');
+
+Route::get('message', function(){ return Redirect::to('/'); });
+Route::post('message/{messageID}','DropController@message_POST');
+
+/*
+//public links
 Route::post('login', 'PublicController@login_POST');
 Route::post('auth', 'AjaxController@login_AJAX');
 
@@ -27,9 +35,5 @@ Route::post('registration', 'AjaxController@register_AJAX');
 Route::post('user/dashboard', 'UserController@dashboard_POST');
 Route::post('user/contacts', 'UserController@contacts_POST');
 Route::post('user/account', 'UserController@account_POST');
-
-//drop service
-Route::post('drop', 'DropController@home_POST');
-Route::post('encrypt', 'AjaxController@encryptDrop_AJAX');
-Route::get('message', function(){ return Redirect::to('/'); });
-Route::post('message/{messageID}','DropController@message_POST');
+Route::get('logoff', 'PublicController@logoff_GET');
+ */
