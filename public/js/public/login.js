@@ -63,7 +63,7 @@ function callServer( rover ){
             'rover': roverEncrypted
         },
         success: function (data) {
-            roverResponse(data);
+            loginResponse(data);
         }, error: function () {
             alert("[something happened attempting to register]");
             registerBtn.prop("disabled",false);
@@ -72,7 +72,7 @@ function callServer( rover ){
     }); //end of ajax
 }
 
-function roverResponse( data ){
+function loginResponse( data ){
     var decryptedData = GibberishAES.dec( data.cipherText, satellite.lss.aesKey);
     decryptedData = JSON.parse( decryptedData );
 

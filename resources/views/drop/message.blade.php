@@ -1,4 +1,4 @@
-
+@include('nav')
 
 <?php
 $message = Session::get('encMessage');

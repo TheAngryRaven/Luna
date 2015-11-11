@@ -105,34 +105,40 @@ function loadPage( pageName ){
     });//end of ajax
 }
 
-//error handeler
-function loadError(data){
-    var statusCode  = data.status;
-    alert('[something happened, status: '+statusCode+']');
-    console.log( data );
-}
-
-//fancy function to handle a redirect or what
-function loadResponse(data, response){
-    var statusCode = response.status;
-    if(statusCode === 500){
+//fancy function handles core page loading
+//also deals with errors
+function loadResponse(data, response) {
+    var statusCode = null;
+    if (response.status === 200) {
+        //technically good, but maybe a script redirect
+        statusCode = data.status;
+    } else {
         //server issue
-        alert('Technical issues requesting data');
-    } else if(statusCode === 404) {
-        //lol not found
+        statusCode = response.status;
+    }
+
+    //now actually check the code
+    if (statusCode === 500) {
+        //server issue
+        alert('Technical issues requesting data, reloading page');
+        window.location.reload();
+    } else if (statusCode === 404) {
+        //route not found
         alert('Page Not Found');
 
-        window.location.href = extractDomain()+'#'+HOME;
-    } else if(statusCode === 200) {
+        window.location.href = extractDomain() + '#' + HOME;
+    } else if (data.status === 302) {
+        //js cant detect redirects so we use this to force one if needed
+        window.location.href = extractDomain() + data.location;
+    } else if (statusCode === 200) {
         //good to go
+        decryptPage(data);
 
-        if( data.status === 302 ){
-            window.location.href = extractDomain()+data.location;
-        } else if( data.status === 500){
-            alert( 'Technical issue with request, please refresh' );
-        }else {
-            decryptPage(data);
-        }
+    } else if(statusCode === 505) {
+        //custom: basically saying the script failed and this is the default handler
+        alert('error somewhere nerd');
+    } else {
+        alert('['+statusCode+'] happened');
     }
 }
 
@@ -205,4 +211,110 @@ function extractDomain() {
     domain = domain.split(':')[0];
 
     return 'http://'+domain+'/';
+}
+
+//fancy function i wrote to handle both erros and messages
+//supports cutsom title, message and buttons, with callback functions
+
+//it may be bootstrap (custom compiled just for glyphs and modals, and just for this)
+//but doing it this way, there's only one function to replace
+function displayAlert(dataBlock){
+    //javascript cant do default values
+    //so this checks if they exist if not, set them blank so we don't see "UNDEFINED" in the box
+    var inputMessage    = ( dataBlock.message ? dataBlock.message : '' );
+    var inputTitle      = ( dataBlock.title ? dataBlock.title : '' );
+
+    //setup the icon to use
+    var icon = null;
+    var color = null;
+    if( dataBlock.error != null && dataBlock.error == true){
+        //this is just a simple message
+        icon = 'glyphicon glyphicon-exclamation-sign';
+        color = '#EE2F0C';
+    } else {
+        //this message is an error
+        icon = 'glyphicon glyphicon-bullhorn';
+        color = '#5144E5';
+    }
+
+    //setup the alert title
+    var windowTitle = '<h3 style="margin-top: 1em;">'+inputTitle+'</h3>';
+
+    //the html for the body
+    var windowMessage = '<div class="row">'+
+        '<div class="col-md-12">'+
+        '<p style="min-height: 5em; margin: 0;"><i class="'+icon+'" style="color: '+color+'; font-size: 4em;float: left;margin-right: .3em;margin-bottom: .1em;"></i>'+inputMessage+'</p>'+
+        '</div>'+
+        '</div>';
+
+    //default setup for the buttons
+    //this is the default close button, or overwritten below
+    var windowButtons = {
+        close: {
+            label: "Close",
+            className: "btn-default",
+            callback: function () {
+                //no callback needed just close
+            }
+        }
+    };
+
+    //did we use custom buttons?
+    if( typeof dataBlock === "object" ){
+        if( dataBlock.other != null ) {
+            windowButtons.other = {
+                label:      dataBlock.other.label,
+                className:  dataBlock.other.className,
+                callback:   dataBlock.other.callback
+            }
+        }
+        if( dataBlock.close != null ) {
+            windowButtons.close = {
+                label:      dataBlock.close.label,
+                className:  dataBlock.close.className,
+                callback:   dataBlock.close.callback
+            }
+        }
+    }
+
+    //ocd and order, and its semi important for ux reasons
+    if( typeof dataBlock === "object" && windowButtons.other != null ){
+        windowButtons = {
+            other: windowButtons.other,
+            close: windowButtons.close
+        };
+    }
+
+    //the bootstrap powered plugin that handles all the other crap involving the popup
+    bootbox.dialog({
+            title: windowTitle,
+            message: windowMessage,
+            buttons: windowButtons
+        }
+    );
+}
+
+//test the 3 aspects of the alert function
+//and show you how to call it
+function testError(){
+    displayAlert({
+        title: 'Not Really an Error',
+        message: "This was a test of the alert function",
+        //optional, custom bootstrap class and button text
+        close: {
+            label: 'Close Window',
+            className: 'btn-danger'
+        },
+        //also optional, basically giving the user the option to like go back to a form
+        other: {
+            label: 'Process Callback',
+            className: 'btn-success',
+            callback: function(){
+                //returning false will keep the alert open FYI
+                displayAlert({ title: 'Plain Message', message: 'You can also just do a super basic popup' });
+            }
+        },
+        //tells the function to either show the red ! or the blue bullhorn
+        error: true
+    });
 }

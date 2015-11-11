@@ -8,6 +8,7 @@ $sessionKeys = Session::get("serverKeys");
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{{ URL::asset('theme/main.css')  }}" />
+    <link rel="stylesheet" href="{{ URL::asset('bootstrap/css/bootstrap.min.css')  }}" />
 
     <script src="{{ URL::asset('js/jquery-1.11.3.min.js') }}"></script>
     <script src="{{ URL::asset('crypto/jsencrypt.js') }}"></script>
@@ -15,7 +16,9 @@ $sessionKeys = Session::get("serverKeys");
     <script src="{{ URL::asset('crypto/sha256.js') }}"></script>
 
     <script src="{{ URL::asset('js/apollo.js') }}"></script>
-    <!--script src="{{ URL::asset('js/core.js') }}"></script-->
+
+    <script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ URL::asset('bootstrap/bootbox.min.js') }}"></script>
 </head>
 <body>
 
