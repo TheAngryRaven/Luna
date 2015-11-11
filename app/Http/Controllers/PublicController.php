@@ -49,88 +49,12 @@ class PublicController extends Controller
         return CryptoService::loadPage($request, 'home');
     }
 
-
     public function login_POST(Request $request){
         return CryptoService::loadPage($request, 'login');
     }
 
-    public function login_AJAX(Request $request){
-        //get the AJAX post input
-        $input = $request->all();
-
-        //decrypts json and turns it into an array
-        $rover = CryptoService::decryptRover( $input['rover'] );
-
-        //attempt login
-        $auth = UserService::login( $rover['UserName'], $rover['PasswordHash'], $rover['PassphraseHash'] );
-
-        //what did it do
-        $response = null;
-        if( $auth == true ) {
-            //yay logged in
-            $response = array(
-                'status' => true,
-                'message' => 'User Authenticated',
-                'result' => null
-            );
-        } else {
-            //lol nope
-            $response = array(
-                'status' => false,
-                'message' => 'Failed to Authenticate',
-                'result' => null
-            );
-        }
-
-        //prepare and encrypt the ajax response
-        $encryptedResponse = json_encode( $response );
-        $encryptedResponse = CryptoService::encryptResponse( $input['handshake'], $encryptedResponse );
-
-        return [ 'cipherText' => $encryptedResponse ];
-    }
-
-
     public function register_POST(Request $request){
         return CryptoService::loadPage($request, 'register');
-    }
-
-    public function register_AJAX(Request $request){
-        //get the AJAX post input
-        $input = $request->all();
-
-        //decrypts json and turns it into an array
-        $rover = CryptoService::decryptRover( $input['rover'] );
-
-        //checks against db and such
-        $validate = ValidatorService::validateRegister( $rover );
-
-        //return buffer
-        $response = null;
-
-        if($validate['fails'] == true){
-            //if any validation errors print them to the form but let the user keep previous data
-            $errors = $validate['errors']->toArray();
-
-            $response = array(
-                'status' => false,
-                'message' => 'Errors validating',
-                'result' => $errors
-            );
-        } else {
-            $attempt = UserService::create( $rover );
-
-            $response = array(
-                'status' => true,
-                'message' => 'User has been created, go to login page',
-                'result' => null
-            );
-        }
-
-        //prepare and encrypt the ajax response
-        $encryptedResponse = json_encode( $response );
-        $encryptedResponse = CryptoService::encryptResponse( $input['handshake'], $encryptedResponse );
-
-        return [ 'cipherText' => $encryptedResponse ];
     }
 
     public function logoff_GET(Request $request){

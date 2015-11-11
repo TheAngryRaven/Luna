@@ -65,7 +65,7 @@ function callServer( rover ){
         success: function (data) {
             loginResponse(data);
         }, error: function () {
-            alert("[something happened attempting to register]");
+            alert("[something happened attempting to login]");
             registerBtn.prop("disabled",false);
             //apollo.encryptionKey = null;
         }

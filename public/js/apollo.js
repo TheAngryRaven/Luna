@@ -95,27 +95,20 @@ function loadPage( pageName ){
             '_token': satellite.lss.token,
             'handshake': satellite.lss.handshake
         },
-        success: function(data, status, response) {
-            loadResponse(data, response);
+        success: function(response) {
+            loadResponse(response);
         },
         error: function(response) {
             //loadError(data);
-            loadResponse(null,response)
+            loadResponse(response)
         }
     });//end of ajax
 }
 
 //fancy function handles core page loading
 //also deals with errors
-function loadResponse(data, response) {
-    var statusCode = null;
-    if (response.status === 200) {
-        //technically good, but maybe a script redirect
-        statusCode = data.status;
-    } else {
-        //server issue
-        statusCode = response.status;
-    }
+function loadResponse(data) {
+    var statusCode = data.status;
 
     //now actually check the code
     if (statusCode === 500) {
@@ -124,7 +117,7 @@ function loadResponse(data, response) {
         window.location.reload();
     } else if (statusCode === 404) {
         //route not found
-        alert('Page Not Found');
+        displayAlert({ title: 'Whoops', message: 'Sorry, but that page does not exist.', error: true });
 
         window.location.href = extractDomain() + '#' + HOME;
     } else if (data.status === 302) {
@@ -318,3 +311,5 @@ function testError(){
         error: true
     });
 }
+
+//new function for unified ajax calls
