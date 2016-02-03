@@ -306,5 +306,3 @@ function testError(){
         error: true
     });
 }
-
-//new function for unified ajax calls
