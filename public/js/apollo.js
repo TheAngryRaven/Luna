@@ -96,28 +96,29 @@ function loadPage( pageName ){
             'handshake': satellite.lss.handshake
         },
         success: function(response) {
-            loadResponse(response);
+            pageLoadResponse(response);
         },
         error: function(response) {
             //loadError(data);
-            loadResponse(response)
+            pageLoadResponse(response)
         }
     });//end of ajax
 }
 
 //fancy function handles core page loading
 //also deals with errors
-function loadResponse(data) {
+//todo: eventually merge with ajax response unit
+function pageLoadResponse(data) {
     var statusCode = data.status;
 
     //now actually check the code
     if (statusCode === 500) {
         //server issue
-        alert('Technical issues requesting data, reloading page');
+        displayAlert({ title: 'Whoops - 500', message: 'Technical issues requesting data, reloading page!', error: true });
         window.location.reload();
     } else if (statusCode === 404) {
         //route not found
-        displayAlert({ title: 'Whoops', message: 'Sorry, but that page does not exist.', error: true });
+        displayAlert({ title: 'Whoops - 404', message: 'Sorry, but that resource does not exist.', error: true });
 
         window.location.href = extractDomain() + '#' + HOME;
     } else if (data.status === 302) {
@@ -129,9 +130,9 @@ function loadResponse(data) {
 
     } else if(statusCode === 505) {
         //custom: basically saying the script failed and this is the default handler
-        alert('error somewhere nerd');
+        displayAlert({ title: 'Whoops - 505', message: 'Technical issues requesting data!', error: true });
     } else {
-        alert('['+statusCode+'] happened');
+        displayAlert({ title: 'Whoops - ???', message: 'Technical issues requesting data!', error: true });
     }
 }
 
@@ -139,22 +140,16 @@ function loadResponse(data) {
 function decryptPage( data ){
     logConsole( "%c Attempting to decrypt page", 'background: #222; color: #66FF33');
 
-    if( data === 'no' ){
-        window.location.href = extractDomain()+"#home";
-        logConsole( "%c error with message, redirected home ", 'background: #222; color: #FF7519');
-    } else {
+    //actually decrypt the message
+    var decryptedMessage = GibberishAES.dec( data.pageData, satellite.lss.aesKey);
 
-        //actually decrypt the message
-        var decryptedMessage = GibberishAES.dec( data.pageData, satellite.lss.aesKey);
+    //send data to pagte
+    $("#encryptedContent").html( decryptedMessage );
 
-        //send data to pagte
-        $("#encryptedContent").html( decryptedMessage );
+    //get server aes
+    satellite.lss.serverAES = GibberishAES.dec( data.handshake, satellite.lss.aesKey );
 
-        //get server aes
-        satellite.lss.serverAES = GibberishAES.dec( data.handshake, satellite.lss.aesKey );
-
-        logConsole( "%c PAGE LOADED AND DECRYPTED ", 'background: #222; color: #FF7519');
-    }
+    logConsole( "%c PAGE LOADED AND DECRYPTED ", 'background: #222; color: #FF7519');
 }
 
 
@@ -257,14 +252,14 @@ function displayAlert(dataBlock){
         if( dataBlock.other != null ) {
             windowButtons.other = {
                 label:      dataBlock.other.label,
-                className:  dataBlock.other.className,
+                className:  dataBlock.other.className ? dataBlock.other.className : 'btn-default',
                 callback:   dataBlock.other.callback
             }
         }
         if( dataBlock.close != null ) {
             windowButtons.close = {
                 label:      dataBlock.close.label,
-                className:  dataBlock.close.className,
+                className:  dataBlock.close.className ? dataBlock.close.className : 'btn-default',
                 callback:   dataBlock.close.callback
             }
         }

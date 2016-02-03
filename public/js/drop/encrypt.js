@@ -236,3 +236,5 @@ function serverResponse( data ){
     //we done
     logConsole( "%c MESSAGE SECURELY UPLOADED ", 'background: #222; color: #FF7519');
 }
+
+
