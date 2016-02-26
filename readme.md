@@ -19,7 +19,7 @@ remember to edit your .env to include an email account as well
 - [x] Second level of security using JS RSA and AES
 - [x] Encrypt 'post' data in a similar way
 - [x] Create basic message drop system
-- [ ] Create user login and register system
+- [x] Create user login and register system
 - [ ] Contact system with keypair abilities
 - [ ] Full blown message encryption between contacts
 - [ ] Drop message to user
