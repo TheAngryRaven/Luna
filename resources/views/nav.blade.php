@@ -4,7 +4,7 @@
     <div id="nav" style="margin-bottom: 1em;">
         <a href="#home" class="button">home</a>
         <!--a href="#login" class="button">Login</a>
-        <--a href="#register" class="button">Register</a-->
+        <a href="#register" class="button">Register</a-->
         <a href="#drop" class="button">drop service</a>
     </div>
 <?php

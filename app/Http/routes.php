@@ -23,7 +23,7 @@ Route::post('encrypt', 'AjaxController@encryptDrop_AJAX');
 Route::get('message', function(){ return Redirect::to('/'); });
 Route::post('message/{messageID}','DropController@message_POST');
 
-/*
+
 //public links
 Route::post('login', 'PublicController@login_POST');
 Route::post('auth', 'AjaxController@login_AJAX');
@@ -36,4 +36,3 @@ Route::post('user/dashboard', 'UserController@dashboard_POST');
 Route::post('user/contacts', 'UserController@contacts_POST');
 Route::post('user/account', 'UserController@account_POST');
 Route::get('logoff', 'PublicController@logoff_GET');
- */

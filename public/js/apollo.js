@@ -26,7 +26,6 @@ $( document ).ready(function() {
 //the fancy page loader thing
 $(window).bind('hashchange', function() {
     var hash = window.location.hash.replace(/^#/,'');
-    //do whatever you need with the hash
     loadPage( hash );
 });
 
