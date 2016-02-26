@@ -39,7 +39,8 @@
 <b>EVERY</b> message is deleted the moment it is viewed.<br><br>
 All information is transmitted with AES encryption to prevent snooping attacks.<br><br>
 By default messages are saved as plaintext for an easy messaging system.<br><br>
-If you include a password, this will create full end-to-end encryption.
+If you include a password, this will create full end-to-end encryption.<br><br>
+On top of all the encryption we provide, you are also secured with HTTPS.
 </p>
 
 <script src="{{ URL::asset('js/drop/encrypt.js') }}"></script>
