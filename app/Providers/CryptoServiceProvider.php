@@ -67,21 +67,6 @@ class CryptoServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param Request $request
-     * @param $URL
-     *
-     * simple redirect runction since the others won't work
-     */
-    static function redirect($URL){
-        $output = [
-            'location' => $URL,
-            'status' => 302
-        ];
-
-        return $output;
-    }
-
-    /**
      * this sets up the keys for said system
      */
     static function setSessionKeys() {

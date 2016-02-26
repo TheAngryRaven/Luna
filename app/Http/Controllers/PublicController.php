@@ -39,14 +39,12 @@ class PublicController extends Controller
      */
 
     public function home_GET(Request $request){
-        //bounce if logged in
-        //if( UserService::isLoggedIn() ){ return Redirect('user/dashboard'); }
-
         return $this->master($request);
     }
 
     public function home_POST(Request $request){
-        return CryptoService::loadPage($request, 'home');
+        //return CryptoService::loadPage($request, 'home');
+        return [ 'status' => 302, 'location' => '#drop' ];
     }
 
     public function login_POST(Request $request){

@@ -38,7 +38,7 @@ $sessionKeys = Session::get("serverKeys");
     <footer id="footer">
         <ul class="icons">
             <li><a href="mailto:lunarmessagingservice@gmail.com" class="fa-envelope">Email</a></li>
-            <li><a href="https://github.com/CrimsonDove/Luna" class="fa-github">Github</a></li>
+            <!--li><a href="https://github.com/CrimsonDove/Luna" class="fa-github">Github</a></li-->
         </ul>
     </footer>
 
@@ -48,8 +48,8 @@ $sessionKeys = Session::get("serverKeys");
 <input type="hidden" id="token" value="{{ csrf_token() }}">
 
 <!--
-It's a bonfire, turn the lights out
-I'm burnin' everything you muthafuckas talk about
+It's a bonfire, turn the lights out,
+I'm burnin' everything you muthafuckas talk about!
 -->
 
 </body>

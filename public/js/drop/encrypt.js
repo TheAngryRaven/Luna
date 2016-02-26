@@ -1,6 +1,6 @@
 
-var dropImageField = $('#imageField');
-var dropClientImage = $('#clientImage');
+//var dropImageField = $('#imageField');
+//var dropClientImage = $('#clientImage');
 var dropMessageField = $('#messageField');
 var dropClientMessage = $('#clientMessage');
 
@@ -79,7 +79,7 @@ function readImage(input) {
     }
 }
 
-setDisplays();
+//setDisplays();
 
 //for message upload page
 function encryptMessage() {
@@ -89,7 +89,7 @@ function encryptMessage() {
     dropEncryptBtn.prop("disabled",true);
 
     //check message type
-    var isMessage = $("#askMessage:checked").val();
+    /*var isMessage = $("#askMessage:checked").val();
     var type = null;
 
     if (isMessage === "on") {
@@ -97,7 +97,8 @@ function encryptMessage() {
     } else {
         type = 'image';
         message = satellite.imageBuffer;
-    }
+    }*/
+    type = 'text';
 
     //check message size (there's also a serverside check)
     var limit = 1024;

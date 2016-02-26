@@ -1,11 +1,13 @@
+<!--
 @include('nav')
+-->
 
 <?php
 $message = Session::get('encMessage');
 $type = Session::get('encMessageType');
 if( $type == 0 ){
 ?>
-<section id="finalMessage" style="text-align: left;">{{ Session::get('encMessage') }}</section>
+<section id="finalMessage" style="text-align: left;font-size: 120%;">{{ Session::get('encMessage') }}</section>
 <?php
 } else {
 ?>
@@ -13,3 +15,5 @@ if( $type == 0 ){
 <?php
 }
 ?>
+<hr>
+<p style="font-size: 80%;">Reminder: this message has already been deleted and cannot be accessed again.</p>
