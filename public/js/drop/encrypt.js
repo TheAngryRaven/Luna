@@ -228,8 +228,8 @@ function serverResponse( data ){
     dropEncryptWith.val('');
 
     //reset image "buffer"
-    satellite.drop.imageBuffer = null;
-    dropClientImage.val("");
+    //satellite.drop.imageBuffer = null;
+    //dropClientImage.val("");
 
     //re-enable button
     dropEncryptBtn.prop("disabled",false);

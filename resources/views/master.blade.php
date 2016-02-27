@@ -28,7 +28,7 @@ $sessionKeys = Session::get("serverKeys");
 
     <!-- Main -->
     <section id="main">
-        <div id="encryptedContent">@include('nav')<p style="margin: 0;">Please Wait<br>Generating encryption keys</p></div>
+        <div id="encryptedContent"><p style="margin: 0;">Please Wait<br>Generating encryption keys</p></div>
     </section>
 
     <!-- lazy hack for now -->
@@ -38,7 +38,7 @@ $sessionKeys = Session::get("serverKeys");
     <footer id="footer">
         <ul class="icons">
             <li><a href="mailto:lunarmessagingservice@gmail.com" class="fa-envelope">Email</a></li>
-            <!--li><a href="https://github.com/CrimsonDove/Luna" class="fa-github">Github</a></li-->
+            <li><a href="https://github.com/CrimsonDove/Luna" class="fa-github">Github</a></li>
         </ul>
     </footer>
 
