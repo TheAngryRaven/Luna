@@ -39,6 +39,9 @@ $sessionKeys = Session::get("serverKeys");
         <ul class="icons">
             <li><a href="mailto:lunarmessagingservice@gmail.com" class="fa-envelope">Email</a></li>
             <li><a href="https://github.com/CrimsonDove/Luna" class="fa-github">Github</a></li>
+            <li><a onclick="window.prompt('lunar Messaging Bitcoin Wallet', '1AZnBnmMz7Le6kpMPCRgtCoWzi8iVnVRab');" class="fa-bitcoin">Bitcoin</a></li>
+
+
         </ul>
     </footer>
 
