@@ -98,7 +98,7 @@ function encryptMessage() {
         type = 'image';
         message = satellite.imageBuffer;
     }*/
-    type = 'text';
+    var type = 'text';
 
     //check message size (there's also a serverside check)
     var limit = 1024;
