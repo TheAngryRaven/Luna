@@ -197,7 +197,7 @@ function extractDomain() {
     //find & remove port number
     domain = domain.split(':')[0];
 
-    return 'http://'+domain+'/';
+    return 'https://'+domain+'/';
 }
 
 //fancy function i wrote to handle both erros and messages
