@@ -57,7 +57,7 @@ class DropController extends Controller
                 DB::delete('DELETE FROM t_drop WHERE dropID = :id', ['id' => $messageID]);
 
                 //load the encrypted message
-                return CryptoService::loadPage($request, 'drop.message', $messageType);
+                return CryptoService::loadPage($request, 'drop.message', (int)$messageType);
             }
         } else {
             //attempt to find message
@@ -82,7 +82,7 @@ class DropController extends Controller
                     DB::delete('DELETE FROM t_drop WHERE dropID = :id', ['id' => $messageID]);
 
                     //load regular message page
-                    return CryptoService::loadPage($request, 'drop.message', $messageType);
+                    return CryptoService::loadPage($request, 'drop.message', (int)$messageType);
                 }
             }
         }
