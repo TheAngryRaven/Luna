@@ -165,7 +165,6 @@ function copyToClipboard(text) {
 //one comment to rule them all
 function logConsole( text, style ){
     if(style === null) { style = '';}
-
     console.log(text, style);
 }
 
@@ -197,11 +196,12 @@ function extractDomain() {
     //find & remove port number
     domain = domain.split(':')[0];
 
-    return 'https://'+domain+'/';
+    return 'http://'+domain+'/';
 }
 
 //fancy function i wrote to handle both erros and messages
 //supports cutsom title, message and buttons, with callback functions
+//not in use, need to tweak for mobile
 
 //it may be bootstrap (custom compiled just for glyphs and modals, and just for this)
 //but doing it this way, there's only one function to replace

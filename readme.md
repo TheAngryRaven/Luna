@@ -29,3 +29,7 @@ remember to edit your .env to include an email account as well
 
        http://www.apache.org/licenses/LICENSE-2.0
 
+#### How it Works
+Everything from the text on the page, to the data you send is securly encrypted in multiple ways.
+
+![workings flowchart](http://s14.postimg.org/xa384vgwx/supershitchart.jpg)
