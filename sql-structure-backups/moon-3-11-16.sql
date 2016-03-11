@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2015-10-27 18:58:51
+Date: 2016-03-11 11:16:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,13 +46,9 @@ CREATE TABLE `t_drop` (
   `messageType` int(4) NOT NULL DEFAULT '0',
   `message` longtext NOT NULL,
   PRIMARY KEY (`dropID`),
-  KEY `fk_drop_type` (`messageType`),
-  CONSTRAINT `fk_drop_type` FOREIGN KEY (`messageType`) REFERENCES `t_drop_type` (`typeID`) ON UPDATE CASCADE
+  KEY `FK_drop_type` (`messageType`),
+  CONSTRAINT `FK_drop_type` FOREIGN KEY (`messageType`) REFERENCES `t_drop_type` (`typeID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of t_drop
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `t_drop_type`
@@ -176,10 +172,6 @@ CREATE TABLE `t_setting_email` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of t_setting_email
--- ----------------------------
-
--- ----------------------------
 -- Table structure for `t_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
@@ -191,7 +183,3 @@ CREATE TABLE `t_user` (
   `encryptionHash` varchar(256) NOT NULL,
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of t_user
--- ----------------------------
