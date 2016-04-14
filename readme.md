@@ -1,18 +1,7 @@
 # [Lunar Messaging](https://lunarmessaging.net)
-This is an attempt at an extremely secure web based encrypted messenger.
+This is an attempt at a secure web based encrypted messenger without downloads.
 
 hosted at https://lunarmessaging.net
-
-### Setup
-Install laravel, then use composer to add phpseclib, everything else is here in the repo.
-
-    $ composer create-project laravel/laravel Luna
-    $ cd Luna
-    $ composer require phpseclib/phpseclib
-
-then use the sql in 'sql-structure-backups' to create the database
-
-remember to edit your .env to include an email account as well
     
 ### ToDo
 - [x] First level of security SSL
