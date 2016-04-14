@@ -1,6 +1,3 @@
-
-//var dropImageField = $('#imageField');
-//var dropClientImage = $('#clientImage');
 var dropMessageField = $('#messageField');
 var dropClientMessage = $('#clientMessage');
 
@@ -9,37 +6,6 @@ var dropEncryptWith = $('#encryptWith');
 var dropEncryptBtn = $('#encryptBtn');
 
 
-//sets up hiding the message box or the image field
-function setDisplays(){
-    dropImageField.hide();
-
-    //pick one nerd
-    $( "input[name='question']" ).change(function() {
-        var isMessage = $( "#askMessage:checked" ).val();
-        var isImage = $( "#askImage:checked" ).val();
-        if(isImage === "on"){
-            //doing image
-            dropImageField.show();
-            dropMessageField.hide();
-
-            dropClientMessage.val('');
-        }
-        if(isMessage === "on"){
-            //doing message
-            dropMessageField.show();
-            dropImageField.hide();
-
-            //reset image "buffer"
-            satellite.drop.imageBuffer = null;
-            dropClientMessage.val("");
-        }
-    });
-
-    //for geting image data
-    $("#clientImage").change(function(){
-        readImage( this );
-    });
-}
 
 //yea kinda coupled right now...
 function readImage(input) {
@@ -88,16 +54,7 @@ function encryptMessage() {
 
     dropEncryptBtn.prop("disabled",true);
 
-    //check message type
-    /*var isMessage = $("#askMessage:checked").val();
-    var type = null;
-
-    if (isMessage === "on") {
-        type = 'text';
-    } else {
-        type = 'image';
-        message = satellite.imageBuffer;
-    }*/
+    //removed all image capabilities for now
     var type = 'text';
 
     //check message size (there's also a serverside check)
@@ -111,14 +68,6 @@ function encryptMessage() {
         $('#encryptBtn').prop("disabled",false);
     } else if (type === 'text' && message.length > limit) {
         alert('Message exceeds ' + limit + ' characters');
-        //re-enable button
-        $('#encryptBtn').prop("disabled",false);
-    } else if( type === 'image' && satellite.drop.imageBuffer === null ){
-        alert( 'no image selected' );
-        //re-enable button
-        $('#encryptBtn').prop("disabled",false);
-    } else if( type === 'image' && ( mPassword === '' || mPassword === null ) ) {
-        alert( "I'm sorry but images must be encrypted" );
         //re-enable button
         $('#encryptBtn').prop("disabled",false);
     } else {
@@ -149,11 +98,7 @@ function encryptMessage() {
                 //encrypt the message pre send
                 logConsole( "%c Has password, encrypting message  ", 'background: black; color: white');
 
-                if( type === 'text' ) {
-                    message = GibberishAES.enc(message, mPassword);
-                } else {
-                    message = GibberishAES.enc(satellite.drop.imageBuffer, mPassword);
-                }
+                message = GibberishAES.enc(message, mPassword);
 
                 logConsole( "%c AES Message Size  ", 'background: black; color: white');
 

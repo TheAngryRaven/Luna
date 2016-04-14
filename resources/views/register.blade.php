@@ -9,8 +9,7 @@
         <input type="text" id="userName" placeholder="Display / User Name">
     </div>
     <div>
-        <p>And email can be used to reset an account</p>
-        <p>This helps friends know its you when you re-add them, as keys are destroyed on reset.</p>
+        <p>An email can be used to reset an account, (but not recover any information)</p>
     </div>
 
     <hr>
