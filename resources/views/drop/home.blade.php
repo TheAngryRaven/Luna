@@ -27,7 +27,9 @@
 
 <hr>
 
-<div style="text-align: left; padding: 1em;">
+<button id="aboutBtn" style="width: 100%; border-color: rgba(7, 128, 149, 0.5); color: rgb(13, 119, 137) !important;" onclick="(function showAbout(){ $('#aboutBlock').show();$('#aboutBtn').hide(); })();">About Lunar Messaging</button>
+
+<div id="aboutBlock" style="text-align: left; padding: 1em;display: none;">
     <h4>Service Information</h4>
     <p>Lunar messaging comprises of two key components, content encryption and message encryption.</p>
     <p>Once the shell of this site loads, your device and our server generates a set of keys that allow for encrypted transmission of all content outside of your messages.</p>
@@ -85,6 +87,7 @@
         </li>
     </ul>
 
+    <button id="aboutBtn" style="width: 100%; border-color: rgba(7, 128, 149, 0.5); color: rgb(13, 119, 137) !important;" onclick="(function showAbout(){ $('#aboutBlock').hide();$('#aboutBtn').show(); })();">Hide Information</button>
 
 </div>
 
