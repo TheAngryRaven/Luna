@@ -77,12 +77,15 @@
             <p>Not to be confused with “encrypted calls”, this would be the equivalent of sending an encrypted voicemail.</p>
         </li>
         <li>
-            <input type="radio" id="check_7" disabled/><label for="check_7">Fresh Coat of Paint</label>
+            <input type="radio" id="check_7" disabled/><label for="check_7">Two Factor Authentication</label>
+            <p>An optional feature to always make sure there is never un-authorized access to your account.</p>
+        </li>
+        <li>
+            <input type="radio" id="check_8" disabled/><label for="check_8">Fresh Coat of Paint</label>
             <p>The site is currently using a hodgepodge of templates. Once the site works as advertised I will focus on the actual design. If everything goes according to plan, worst case scenario the site will official January 2017.</p>
         </li>
-
         <li>
-            <input type="radio" id="check_8" disabled/><label for="check_8">The future</label>
+            <input type="radio" id="check_9" disabled/><label for="check_9">The future</label>
             <p>Once completed the adventure of features begin. With goals from html5 image editing, to a downloadable application for even more security, there is a lot of fun places this project can go.<p></p>As long as people are interested in this service, development will always continue.</p>
         </li>
     </ul>
