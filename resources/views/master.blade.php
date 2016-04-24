@@ -37,7 +37,7 @@ $sessionKeys = Session::get("serverKeys");
 
 
     <!-- Main -->
-    <img style="width: 90%; max-width:387px;margin-bottom:2em;" src="{{ URL::asset('header.png') }}" alt="LunarMessaging Logo">
+    <a href="{{ URL::to('/') }}"><img style="width: 90%; max-width:387px;margin-bottom:2em;" src="{{ URL::asset('header.png') }}" alt="LunarMessaging Logo"></a>
     <section id="main">
         <div id="encryptedContent"><p style="margin: 0;">Please Wait<br>Generating encryption keys</p></div>
     </section>
