@@ -85,15 +85,15 @@
 
 	body {
 		height: 100%;
-		background-color: #ffffff;
-		background-image: url("overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("bg.jpg");
+		background-color: #373737;
+		/**background-image: url("overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("bg.jpg");
 		background-image: url("overlay.png"), -webkit-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("bg.jpg");
 		background-image: url("overlay.png"), -ms-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("bg.jpg");
 		background-image: url("overlay.png"), linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("bg.jpg");
 		background-repeat: repeat,			no-repeat,			no-repeat;
 		background-size: 100px 100px, cover,				cover;
 		background-position: top left,		center center,		bottom center;
-		background-attachment: fixed,			fixed,				fixed;
+		background-attachment: fixed,			fixed,				fixed;**/
 	}
 
 		body:after {
@@ -106,8 +106,8 @@
 			height: inherit;
 			opacity: 0;
 			z-index: 1;
-			background-color: #ffffff;
-			background-image: url("overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
+			background-color: #373737;
+			/**background-image: url("overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
 			background-image: url("overlay.png"), -webkit-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
 			background-image: url("overlay.png"), -ms-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
 			background-image: url("overlay.png"), linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
@@ -117,7 +117,7 @@
 			-moz-transition: opacity 1.75s ease-out;
 			-webkit-transition: opacity 1.75s ease-out;
 			-ms-transition: opacity 1.75s ease-out;
-			transition: opacity 1.75s ease-out;
+			transition: opacity 1.75s ease-out;**/
 		}
 
 		body.is-loading:after {
