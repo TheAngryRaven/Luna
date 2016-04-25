@@ -21,7 +21,7 @@
         <textarea id="clientMessage" placeholder="Message" rows="4"></textarea>
     </div>
     <ul class="actions" style="margin-top: 1em;">
-        <li><button id="encryptBtn" class="button" onclick="encryptMessage()">Get Encrypted Link</button></li>
+        <li><button id="encryptBtn" class="button" onclick="encryptMessage()">Get Message URL</button></li>
     </ul>
 </div>
 
@@ -35,7 +35,7 @@
     <p>Once the shell of this site loads, your device and our server generates a set of keys that allow for encrypted transmission of all content outside of your messages.</p>
 
     <h5>Important Prototype Notes</h5>
-    <p><b>Currently, while all the transmissions are encrypted. Unless you add a password messages are saved plaintext in the database</b>.</p>
+    <p><b>Currently, while all the transmissions are encrypted multiple ways. Unless you add a password messages are saved plaintext in the database</b>.</p>
 
     <p>We cannot read password protected messages. That information is saved and encrypted on your devices not ours. Along with all of this protection, messages are deleted once they have been received.</p>
 

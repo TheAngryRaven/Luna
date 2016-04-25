@@ -171,6 +171,7 @@ function serverResponse( data ){
     dropClientMessage.val('');
     dropSendTo.val('');
     dropEncryptWith.val('');
+    $('#encryptBtn').html('Get Message URL');
 
     //reset image "buffer"
     //satellite.drop.imageBuffer = null;
@@ -189,8 +190,8 @@ $( "#sendTo" ).change(function() {
     var sendTo = $('#sendTo').val();
 
     if(sendTo === ''){
-        $('#encryptBtn').html('Get Encrypted Link');
+        $('#encryptBtn').html('Get Message URL');
     } else {
-        $('#encryptBtn').html('Send Encrypted Link');
+        $('#encryptBtn').html('Email Message');
     }
 });
