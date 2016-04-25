@@ -34,7 +34,11 @@ function decryptMessage(){
                 'hash':         encryptedHash
             },
             success:function(data){
-                attemptDecryption( data );
+                if (data.status === 302) {
+                    loadPage( '#drop' );
+                } else {
+                    attemptDecryption( data );
+                }
             },error:function(){
                 alert("[something happened]");
                 $('#decryptBtn').prop("disabled",false);

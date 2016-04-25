@@ -184,3 +184,13 @@ function serverResponse( data ){
 }
 
 
+
+$( "#sendTo" ).change(function() {
+    var sendTo = $('#sendTo').val();
+
+    if(sendTo === ''){
+        $('#encryptBtn').html('Get Encrypted Link');
+    } else {
+        $('#encryptBtn').html('Send Encrypted Link');
+    }
+});

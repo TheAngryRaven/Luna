@@ -21,7 +21,7 @@
         <textarea id="clientMessage" placeholder="Message" rows="4"></textarea>
     </div>
     <ul class="actions" style="margin-top: 1em;">
-        <li><button id="encryptBtn" class="button" onclick="encryptMessage()">Get/Send Encrypted Link</button></li>
+        <li><button id="encryptBtn" class="button" onclick="encryptMessage()">Get Encrypted Link</button></li>
     </ul>
 </div>
 

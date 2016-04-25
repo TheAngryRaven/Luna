@@ -34,6 +34,30 @@ class DropController extends Controller
      */
     public function message_POST(Request $request, $messageID){
         //this gets triggered if a user as attempted a password check
+        if($request->has('human')){
+
+            //attempt to find message
+            $lookup = DB::select("SELECT message, messageType, passwordHash FROM t_drop WHERE dropID = :id", ['id' => $messageID]);
+
+            if ($lookup == null) {
+                //does not exit
+                return [ 'status' => 302, 'location' => '#drop' ];
+            } else {
+                $message = $lookup[0]->message;
+                $messageType = $lookup[0]->messageType;
+
+                //flash message to session (this is still not sent to the client in plaintext)
+                Session::flash('encMessage', $message);
+                Session::flash('encMessageType', $messageType);
+
+                //now delete the message from the server
+                DB::delete('DELETE FROM t_drop WHERE dropID = :id', ['id' => $messageID]);
+
+                //load regular message page
+                return CryptoService::loadPage($request, 'drop.message', (int)$messageType);
+            }
+        }
+
         if ($request->has('hash'))
         {
             $input = $request->all();
@@ -74,15 +98,8 @@ class DropController extends Controller
                     //load page with more fancy javascript
                     return CryptoService::loadPage($request, 'drop.password');
                 } else {
-                    //flash message to session (this is still not sent to the client in plaintext)
-                    Session::flash('encMessage', $message);
-                    Session::flash('encMessageType', $messageType);
-
-                    //now delete the message from the server
-                    DB::delete('DELETE FROM t_drop WHERE dropID = :id', ['id' => $messageID]);
-
-                    //load regular message page
-                    return CryptoService::loadPage($request, 'drop.message', (int)$messageType);
+                    //simple "human check"
+                    return CryptoService::loadPage($request, 'drop.view', (int)$messageType);
                 }
             }
         }
