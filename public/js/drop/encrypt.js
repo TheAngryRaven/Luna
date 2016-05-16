@@ -83,7 +83,6 @@ function encryptMessage() {
             alert('Please Use a proper Email or remove it');
         } else if ( email !== '' && email !== null){
             logConsole( "%c Send to email  ", 'background: black; color: white');
-            logConsole( email );
 
             //encrypt email
             email = GibberishAES.enc(email, satellite.lss.serverAES);

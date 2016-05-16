@@ -1,7 +1,8 @@
 <h2>Lunar Messaging Prototype</h2>
 <p>One way encrypted messaging, no account required.</p>
 <hr>
-
+<a href="https://www.kickstarter.com/projects/1483928940/lunarmessagingnet" target="_blank">Currently Raising Funds on Kickstarter!</a>
+<hr>
 <div>
     <p>Once your message has been received you will be provided with a link that needs to be given to your recepient.</p>
     <div class="field">
