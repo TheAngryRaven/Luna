@@ -1,8 +1,4 @@
 @include('nav')
-
-<h2>Lunar Messaging</h2>
-<p>login</p>
-
 <div>
     <div class="field">
         <input type="text" id="userName" placeholder="Display / User Name">

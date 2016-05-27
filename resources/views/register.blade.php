@@ -1,7 +1,5 @@
 @include('nav')
 
-<h2>Lunar Messaging</h2>
-<p>Create Account</p>
 <div>
     <div class="field">
         <input type="email" id="userEmail" placeholder="Your Email (optional)" />
@@ -35,7 +33,7 @@
         <li><button id="registerBtn" class="button" onclick="registerUser()">Register</button></li>
     </ul>
 </div>
-<p style="font-size: 90%">We only save a SHA256 hash of your Password and Passphrase<br>Your passphrase is used to encrypt all of your private keys and other sensitive data.<br>DO NOT tell anyone this phrase.<br><br>We will never use your email for anything other than account validation or serious website updates.</p>
+<p style="font-size: 90%">We only save a SHA256 hash of your Password and Passphrase<br>Your passphrase is used to encrypt all of your private keys and other sensitive data.<br>Your email will only be used for site related affairs.</p>
 
 <script src="{{ URL::asset('js/public/register.js') }}"></script>
 

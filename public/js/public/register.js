@@ -83,7 +83,7 @@ function callServer( rover ){
 
     //turn rover to string
     var roverString = JSON.stringify( rover );
-    var roverEncrypted = GibberishAES.enc( roverString, satellite.connection.serverAES );
+    var roverEncrypted = GibberishAES.enc( roverString, satellite.lss.serverAES );
 
     //laravel "form" token
     var ajaxToken = $('#token').val();
@@ -94,7 +94,7 @@ function callServer( rover ){
         data: {
             'X-CSRF-TOKEN': ajaxToken,
             '_token': ajaxToken,
-            'handshake': satellite.connection.handshake,
+            'handshake': satellite.lss.handshake,
             'rover': roverEncrypted
         },
         success: function (data) {
@@ -107,7 +107,7 @@ function callServer( rover ){
 }
 
 function roverResponse( data ){
-    var decryptedData = GibberishAES.dec( data.cipherText, satellite.connection.aesKey);
+    var decryptedData = GibberishAES.dec( data.cipherText, satellite.lss.aesKey);
     decryptedData = JSON.parse( decryptedData );
 
     console.log( decryptedData );
@@ -115,7 +115,7 @@ function roverResponse( data ){
     if( decryptedData.status === true ){
         //yay its good
         alert( decryptedData.message );
-        window.location.href = extractDomain()+'login';
+        window.location.href = extractDomain()+'#login';
     } else {
         //nop u fuked up
         alert( decryptedData.message );

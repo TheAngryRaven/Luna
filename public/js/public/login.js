@@ -83,7 +83,7 @@ function loginResponse( data ){
         //alert( decryptedData.message );
         window.location.href = extractDomain()+'#user/dashboard';
     } else {
-        //nop u fuked up
+        //nope
         //apollo.encryptionKey = null;
         alert( decryptedData.message );
     }
