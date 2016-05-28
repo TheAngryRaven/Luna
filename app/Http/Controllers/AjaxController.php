@@ -90,7 +90,7 @@ class AjaxController extends Controller
 
             $response = array(
                 'status' => true,
-                'message' => 'User has been created, go to login page',
+                'message' => 'Successful registration, you will now be redirected to the login page.',
                 'result' => null
             );
         }

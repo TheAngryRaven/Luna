@@ -15,32 +15,32 @@ function registerUser(){
     registerBtn.prop("disabled",true);
 
     if( userEmail.val() !== ''&& validateEmail( userEmail.val() ) === false ){
-        alert('If using an email, it must be a valid one');
+        messageWarning('If using an email, it must be a valid one');
         registerBtn.prop("disabled",false);
     }else if( userName.val() === '' ) {
         //todo: ajax check
-        alert('Must enter a username');
+        messageWarning('Must enter a username');
         registerBtn.prop("disabled", false);
     } else if( validateUserName( userName.val() ) === false ){
-        alert('Username must be between 3-20 characters, and contain no spaces. only allowed characters are A-Z 0-9 _ and -');
+        messageWarning('Username must be between 3-20 characters, and contain no spaces. only allowed characters are A-Z 0-9 _ and -');
         registerBtn.prop("disabled",false);
     }else if( userPassword.val() === '' || userPassword.val() == null ){
-        alert('You must include a password');
+        messageWarning('You must include a password');
         registerBtn.prop("disabled",false);
     }else if( userPassword.val().length < 6 ){
-        alert('Password Not Long Enough [min: 6]');
+        messageWarning('Password Not Long Enough [min: 6]');
         registerBtn.prop("disabled",false);
     }else if( userPassword.val() !== userPasswordConfirm.val() ){
-        alert('Password does not match confirmation');
+        messageWarning('Password does not match confirmation');
         registerBtn.prop("disabled",false);
     }else if( userPassphrase.val() === '' || userPassphrase.val() == null ){
-        alert('You must include a passphrase');
+        messageWarning('You must include a passphrase');
         registerBtn.prop("disabled",false);
     }else if( userPassphrase.val().length < 10 ){
-        alert('Passphrase Not Long Enough [min: 10]');
+        messageWarning('Passphrase Not Long Enough [min: 10]');
         registerBtn.prop("disabled",false);
     }else if( userPassphrase.val() !== userPassphraseConfirm.val() ){
-        alert('Passphrase does not match confirmation');
+        messageWarning('Passphrase does not match confirmation');
         registerBtn.prop("disabled",false);
     } else {
         //finally were good to fuckin go
@@ -79,7 +79,7 @@ function registerUser(){
 }
 
 function callServer( rover ){
-    console.log( rover );
+    //console.log( rover );
 
     //turn rover to string
     var roverString = JSON.stringify( rover );
@@ -110,11 +110,11 @@ function roverResponse( data ){
     var decryptedData = GibberishAES.dec( data.cipherText, satellite.lss.aesKey);
     decryptedData = JSON.parse( decryptedData );
 
-    console.log( decryptedData );
+    //console.log( decryptedData );
 
     if( decryptedData.status === true ){
         //yay its good
-        alert( decryptedData.message );
+        messageSuccess( decryptedData.message );
         window.location.href = extractDomain()+'#login';
     } else {
         //nop u fuked up

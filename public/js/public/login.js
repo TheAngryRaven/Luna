@@ -10,16 +10,16 @@ function authUser(){
 
     if( userName.val() === '' ) {
         //todo: ajax check
-        alert('Must enter a username');
+        messageWarning('Must enter a username');
         authBtn.prop("disabled", false);
     } else if( validateUserName( userName.val() ) === false ){
-        alert('Username must be between 3-20 characters, and contain no spaces. only allowed characters are A-Z 0-9 _ and -');
+        messageWarning('Username must be between 3-20 characters, and contain no spaces. only allowed characters are A-Z 0-9 _ and -');
         authBtn.prop("disabled",false);
     }else if( userPassword.val() === '' || userPassword.val() == null ){
-        alert('You must include a password');
+        messageWarning('You must include a password');
         authBtn.prop("disabled",false);
     }else if( userPassword.val().length < 6 ){
-        alert('Password Not Long Enough [min: 6]');
+        messageWarning('Password Not Long Enough [min: 6]');
         authBtn.prop("disabled",false);
     }else {
         //finally were good to fuckin go
@@ -44,7 +44,7 @@ function authUser(){
 }
 
 function callServer( rover ){
-    console.log( rover );
+    //console.log( rover );
 
     //turn rover to string
     var roverString = JSON.stringify( rover );
@@ -65,7 +65,7 @@ function callServer( rover ){
         success: function (data) {
             loginResponse(data);
         }, error: function () {
-            alert("[something happened attempting to login]");
+            messageWarning("[something happened attempting to login]");
             registerBtn.prop("disabled",false);
             //apollo.encryptionKey = null;
         }
@@ -76,7 +76,7 @@ function loginResponse( data ){
     var decryptedData = GibberishAES.dec( data.cipherText, satellite.lss.aesKey);
     decryptedData = JSON.parse( decryptedData );
 
-    console.log( decryptedData );
+    //console.log( decryptedData );
 
     if( decryptedData.status === true ){
         //yay its good
@@ -85,7 +85,7 @@ function loginResponse( data ){
     } else {
         //nope
         //apollo.encryptionKey = null;
-        alert( decryptedData.message );
+        messageWarning( decryptedData.message );
     }
 
     //reset button

@@ -29,6 +29,17 @@ $sessionKeys = Session::get("serverKeys");
     <meta name="msapplication-TileColor" content="#3B3B3B" />
     <meta name="msapplication-TileImage" content="{{ URL::asset('favicon') }}/mstile-144x144.png" />
 
+    <style>
+        /*beinglazy for now*/
+        .modal-footer button.btn {
+            color: white !important;
+        }
+        .modal-footer button.btn.btn-default {
+             color: black !important;
+        }
+
+    </style>
+
 </head>
 <body>
 

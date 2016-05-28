@@ -309,3 +309,32 @@ function testError(){
         error: true
     });
 }
+
+//basic messages functions
+function messageWarning(message, title = 'Warning'){
+    displayAlert({
+        title: title,
+        message: message,
+        //optional, custom bootstrap class and button text
+        close: {
+            label: 'Close',
+            className: 'btn-default',
+        },
+        //tells the function to either show the red ! or the blue bullhorn
+        error: true
+    });
+}
+
+function messageSuccess(message, title = 'Success'){
+    displayAlert({
+        title: title,
+        message: message,
+        //optional, custom bootstrap class and button text
+        close: {
+            label: 'Close',
+            className: 'btn-success'
+        },
+        //tells the function to either show the red ! or the blue bullhorn
+        error: false
+    });
+}
