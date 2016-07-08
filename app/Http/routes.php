@@ -26,7 +26,7 @@ Route::post('message/{messageID}','DropController@message_POST');
 /** LOGGED IN LINKS **/
 
 //public links
-Route::post('login',            'PublicController@login_POST');
+/*Route::post('login',            'PublicController@login_POST');
 Route::get('logoff',            'PublicController@logoff_GET');
 Route::post('auth',             'AjaxController@login_AJAX');
 
@@ -36,6 +36,6 @@ Route::post('registration',     'AjaxController@register_AJAX');
 //logged in links
 Route::post('user/dashboard',   'UserController@dashboard_POST');
 Route::post('user/contacts',    'UserController@contacts_POST');
-Route::post('user/account',     'UserController@account_POST');
+Route::post('user/account',     'UserController@account_POST');*/
 
 

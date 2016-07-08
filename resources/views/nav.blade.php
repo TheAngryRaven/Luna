@@ -1,4 +1,3 @@
-<!--
 <?php
     if( UserService::isLoggedIn() == false ){
 ?>
@@ -21,4 +20,3 @@
     }
 ?>
 <hr>
--->
