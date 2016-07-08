@@ -43,8 +43,8 @@ class PublicController extends Controller
     }
 
     public function home_POST(Request $request){
-        return CryptoService::loadPage($request, 'home');
-        //return [ 'status' => 302, 'location' => '#drop' ];
+        //return CryptoService::loadPage($request, 'home');
+        return [ 'status' => 302, 'location' => '#drop' ];
     }
 
     public function login_POST(Request $request){
